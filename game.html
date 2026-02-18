@@ -13,6 +13,8 @@
     --red: #e63329;
     --green: #1a8a3c;
     --amber: #d4820a;
+    --teal: #0e8a7a;
+    --purple: #7a3ab5;
     --gray: #3a3a3a;
     --light-gray: #b0a898;
   }
@@ -27,7 +29,6 @@
     overflow-x: hidden;
   }
 
-  /* ---- SCREEN SYSTEM ---- */
   .screen { display: none; min-height: 100vh; }
   .screen.active { display: flex; flex-direction: column; }
 
@@ -41,18 +42,11 @@
     position: relative;
     overflow: hidden;
   }
-
   #title-screen::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 30px,
-      rgba(255,255,255,0.025) 30px,
-      rgba(255,255,255,0.025) 31px
-    );
+    background: repeating-linear-gradient(0deg, transparent, transparent 30px, rgba(255,255,255,0.025) 30px, rgba(255,255,255,0.025) 31px);
   }
 
   .title-badge {
@@ -66,7 +60,6 @@
     margin-bottom: 40px;
     display: inline-block;
   }
-
   h1.game-title {
     font-family: 'Unbounded', sans-serif;
     font-weight: 900;
@@ -76,23 +69,9 @@
     color: var(--white);
     margin-bottom: 20px;
   }
-
   h1.game-title span { color: var(--red); }
-
-  .subtitle {
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--light-gray);
-    margin-bottom: 60px;
-    text-transform: uppercase;
-  }
-
-  .crenshaw-credit {
-    font-size: 11px;
-    color: var(--light-gray);
-    margin-bottom: 60px;
-    font-style: italic;
-  }
+  .subtitle { font-size: 13px; letter-spacing: 2px; color: var(--light-gray); margin-bottom: 20px; text-transform: uppercase; }
+  .crenshaw-credit { font-size: 11px; color: var(--light-gray); margin-bottom: 60px; font-style: italic; }
 
   .big-btn {
     font-family: 'Unbounded', sans-serif;
@@ -110,7 +89,7 @@
   }
   .big-btn:hover { background: var(--white); color: var(--red); transform: scale(1.03); }
 
-  /* ---- SHARED LAYOUT ---- */
+  /* ---- SHARED ---- */
   .screen-header {
     background: var(--black);
     border-bottom: 1px solid #222;
@@ -119,589 +98,301 @@
     align-items: center;
     gap: 20px;
   }
+  .round-indicator { font-size: 11px; letter-spacing: 3px; color: var(--light-gray); text-transform: uppercase; margin-left: auto; }
 
-  .screen-header .logo {
-    font-family: 'Unbounded', sans-serif;
-    font-weight: 900;
-    font-size: 20px;
-    letter-spacing: -1px;
-  }
-  .screen-header .logo span { color: var(--red); }
-
-  .round-indicator {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--light-gray);
-    text-transform: uppercase;
-    margin-left: auto;
-  }
-
-  /* ---- RULES SCREEN ---- */
-  #rules-screen {
-    padding: 60px 40px;
-    max-width: 900px;
-    margin: 0 auto;
-    flex-direction: column;
-    gap: 40px;
-  }
+  /* ---- RULES ---- */
+  #rules-screen { padding: 60px 40px; max-width: 900px; margin: 0 auto; flex-direction: column; gap: 40px; }
   #rules-screen.active { display: flex; }
-
-  .rules-title {
-    font-family: 'Unbounded', sans-serif;
-    font-weight: 700;
-    font-size: 32px;
-    color: var(--white);
-  }
-
-  .rule-block {
-    border-left: 3px solid var(--red);
-    padding-left: 24px;
-  }
-
-  .rule-block h3 {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--red);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-
-  .rule-block p, .rule-block li {
-    font-size: 13px;
-    line-height: 1.8;
-    color: var(--light-gray);
-  }
-
+  .rules-title { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 32px; color: var(--white); }
+  .rule-block { border-left: 3px solid var(--red); padding-left: 24px; }
+  .rule-block h3 { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1px; color: var(--red); margin-bottom: 12px; text-transform: uppercase; }
+  .rule-block p, .rule-block li { font-size: 13px; line-height: 1.8; color: var(--light-gray); }
   .rule-block ul { list-style: none; }
   .rule-block ul li::before { content: '→ '; color: var(--red); }
 
-  /* ---- SETUP SCREEN ---- */
-  #setup-screen {
-    padding: 0;
-    flex-direction: column;
-  }
+  /* ---- SETUP ---- */
+  #setup-screen { padding: 0; flex-direction: column; }
   #setup-screen.active { display: flex; }
-
-  .setup-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    flex: 1;
-  }
-
-  .setup-panel {
-    padding: 40px;
-    border-right: 1px solid #222;
-  }
-
+  .setup-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; flex: 1; }
+  .setup-panel { padding: 40px; border-right: 1px solid #222; overflow-y: auto; }
   .setup-panel:last-child { border-right: none; }
+  .panel-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--light-gray); margin-bottom: 24px; }
 
-  .panel-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--light-gray);
-    margin-bottom: 24px;
-  }
-
-  .identity-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .identity-card {
-    background: #111;
-    border: 1px solid #333;
-    padding: 16px;
-    cursor: pointer;
-    transition: all 0.15s;
-    position: relative;
-  }
-
+  .identity-card { background: #111; border: 1px solid #333; padding: 16px; cursor: pointer; transition: all 0.15s; position: relative; margin-bottom: 6px; }
   .identity-card:hover { border-color: var(--amber); }
   .identity-card.selected { border-color: var(--amber); background: #1a1600; }
-  .identity-card.selected::after {
-    content: '✓';
-    position: absolute;
-    top: 8px; right: 10px;
-    color: var(--amber);
-    font-size: 12px;
-  }
+  .identity-card.selected::after { content: '✓'; position: absolute; top: 8px; right: 10px; color: var(--amber); font-size: 12px; }
+  .identity-name { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; color: var(--white); }
+  .privilege-bar-container { margin-top: 8px; height: 3px; background: #333; }
+  .privilege-bar { height: 100%; background: var(--amber); transition: width 0.4s; }
 
-  .identity-card .cat-label {
+  .character-preview { background: #0d0d0d; border: 1px solid #222; padding: 24px; margin-top: 20px; }
+  .char-name { font-family: 'Unbounded', sans-serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 16px; }
+  .char-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .char-tag { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--amber); color: var(--amber); }
+
+  /* CCW preview in setup */
+  .ccw-preview {
+    margin-top: 16px;
+    padding: 16px;
+    background: #0a0f0d;
+    border: 1px solid var(--teal);
+  }
+  .ccw-preview-label {
     font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--light-gray);
-    margin-bottom: 6px;
+    color: var(--teal);
+    margin-bottom: 10px;
   }
-
-  .identity-card .identity-name {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .privilege-bar-container {
-    margin-top: 8px;
-    height: 3px;
-    background: #333;
-  }
-
-  .privilege-bar {
-    height: 100%;
-    background: var(--amber);
-    transition: width 0.4s;
-  }
-
-  .character-preview {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    padding: 24px;
-    margin-top: 20px;
-  }
-
-  .char-name {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-
-  .char-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .char-tag {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border: 1px solid var(--amber);
-    color: var(--amber);
-  }
-
-  .access-score {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 16px;
-  }
-
-  .access-score-label {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--light-gray);
-  }
-
-  .access-score-value {
+  .ccw-count-display {
     font-family: 'Unbounded', sans-serif;
     font-size: 28px;
     font-weight: 900;
-    color: var(--amber);
+    color: var(--teal);
+    line-height: 1;
+  }
+  .ccw-count-sub {
+    font-size: 10px;
+    color: var(--light-gray);
+    margin-top: 4px;
   }
 
-  .players-section {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .player-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #111;
-    border: 1px solid #222;
-    padding: 12px 16px;
-  }
-
-  .player-num {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--red);
-    width: 24px;
-  }
-
-  .player-name-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #444;
-    color: var(--white);
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    padding: 4px 8px;
-    flex: 1;
-    outline: none;
-  }
+  .players-section { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .player-row { display: flex; align-items: center; gap: 12px; background: #111; border: 1px solid #222; padding: 12px 16px; }
+  .player-num { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--red); width: 24px; }
+  .player-name-input { background: transparent; border: none; border-bottom: 1px solid #444; color: var(--white); font-family: 'Space Mono', monospace; font-size: 13px; padding: 4px 8px; flex: 1; outline: none; }
   .player-name-input:focus { border-bottom-color: var(--amber); }
   .player-name-input::placeholder { color: #444; }
 
   /* ---- GAME SCREEN ---- */
   #game-screen { flex-direction: column; }
   #game-screen.active { display: flex; }
-
-  .game-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr 280px;
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .sidebar {
-    border-right: 1px solid #1a1a1a;
-    padding: 24px;
-    overflow-y: auto;
-    background: #050505;
-  }
-
+  .game-layout { display: grid; grid-template-columns: 280px 1fr 280px; flex: 1; overflow: hidden; }
+  .sidebar { border-right: 1px solid #1a1a1a; padding: 24px; overflow-y: auto; background: #050505; }
   .sidebar:last-child { border-right: none; border-left: 1px solid #1a1a1a; }
+  .sidebar-title { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--light-gray); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #1a1a1a; }
 
-  .sidebar-title {
-    font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--light-gray);
-    margin-bottom: 20px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #1a1a1a;
-  }
-
-  .player-card {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    padding: 16px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .player-card.active-player { border-color: var(--amber); }
-  .player-card.current-turn { border-left: 3px solid var(--red); }
-
-  .player-card-name {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .player-tags-mini {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-bottom: 10px;
-  }
-
-  .tag-mini {
-    font-size: 8px;
-    letter-spacing: 1px;
-    padding: 2px 6px;
-    background: #1a1a1a;
-    color: var(--light-gray);
-  }
-
-  .score-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
+  .player-card { background: #0d0d0d; border: 1px solid #222; padding: 16px; margin-bottom: 12px; }
+  .player-card-name { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .player-tags-mini { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .tag-mini { font-size: 8px; letter-spacing: 1px; padding: 2px 6px; background: #1a1a1a; color: var(--light-gray); }
+  .score-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
   .score-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #555; }
   .score-val { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 700; }
   .score-val.positive { color: var(--green); }
   .score-val.neutral { color: var(--amber); }
   .score-val.negative { color: var(--red); }
 
-  /* Center game area */
-  .game-center {
-    padding: 32px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .scenario-card {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    padding: 32px;
-    position: relative;
-  }
-
-  .scenario-card::before {
-    content: 'SCENARIO';
-    position: absolute;
-    top: -1px; left: 24px;
+  /* CCW mini cards on player sidebar */
+  .ccw-mini-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+  .ccw-pip {
     font-size: 9px;
-    letter-spacing: 4px;
-    background: var(--red);
-    color: var(--white);
-    padding: 4px 12px;
-    transform: translateY(-50%);
-  }
-
-  .scenario-title {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 16px;
-    margin-top: 8px;
-  }
-
-  .scenario-desc {
-    font-size: 13px;
-    line-height: 1.8;
-    color: var(--light-gray);
-    margin-bottom: 24px;
-  }
-
-  .discussion-prompt {
-    background: #111;
-    border-left: 3px solid var(--amber);
-    padding: 16px 20px;
-    margin-bottom: 24px;
-  }
-
-  .discussion-prompt-label {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 8px;
-  }
-
-  .discussion-prompt p {
-    font-size: 12px;
-    line-height: 1.7;
-    color: var(--light-gray);
-    font-style: italic;
-  }
-
-  .access-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .access-option {
-    background: #111;
-    border: 1px solid #333;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-  }
-
-  .access-option:hover { border-color: var(--white); }
-  .access-option.selected-choice { border-color: var(--green); background: #071208; }
-
-  .access-option-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .access-icon {
-    font-size: 18px;
-  }
-
-  .access-option-name {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .access-option-desc {
-    font-size: 11px;
-    line-height: 1.6;
-    color: var(--light-gray);
-    margin-bottom: 12px;
-  }
-
-  .access-modifiers {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .modifier-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
+    padding: 2px 6px;
+    background: #0a1a14;
+    border: 1px solid var(--teal);
+    color: var(--teal);
     letter-spacing: 1px;
     text-transform: uppercase;
   }
+  .ccw-pip.used { background: #111; border-color: #333; color: #444; text-decoration: line-through; }
 
+  .game-center { padding: 32px; overflow-y: auto; display: flex; flex-direction: column; gap: 24px; }
+
+  .scenario-card { background: #0d0d0d; border: 1px solid #222; padding: 32px; position: relative; }
+  .scenario-card::before { content: 'SCENARIO'; position: absolute; top: -1px; left: 24px; font-size: 9px; letter-spacing: 4px; background: var(--red); color: var(--white); padding: 4px 12px; transform: translateY(-50%); }
+  .scenario-title { font-family: 'Unbounded', sans-serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 16px; margin-top: 8px; }
+  .scenario-desc { font-size: 13px; line-height: 1.8; color: var(--light-gray); margin-bottom: 24px; }
+
+  .discussion-prompt { background: #111; border-left: 3px solid var(--amber); padding: 16px 20px; margin-bottom: 24px; }
+  .discussion-prompt-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+  .discussion-prompt p { font-size: 12px; line-height: 1.7; color: var(--light-gray); font-style: italic; }
+
+  .access-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .access-option { background: #111; border: 1px solid #333; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; }
+  .access-option:hover { border-color: var(--white); }
+  .access-option.selected-choice { border-color: var(--green); background: #071208; }
+  .access-option-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .access-icon { font-size: 18px; }
+  .access-option-name { font-family: 'Unbounded', sans-serif; font-size: 12px; font-weight: 700; color: var(--white); }
+  .access-option-desc { font-size: 11px; line-height: 1.6; color: var(--light-gray); margin-bottom: 12px; }
+  .access-modifiers { display: flex; flex-direction: column; gap: 4px; }
+  .modifier-row { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
   .modifier-label { color: #555; }
   .modifier-val.pos { color: var(--green); }
   .modifier-val.neg { color: var(--red); }
   .modifier-val.neu { color: var(--amber); }
 
-  /* Outcome display */
-  .outcome-display {
+  .outcome-display { background: #0d0d0d; border: 1px solid #222; padding: 24px; }
+  .outcome-header { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--light-gray); margin-bottom: 16px; }
+  .outcome-list { display: flex; flex-direction: column; gap: 12px; }
+  .outcome-item { display: flex; align-items: flex-start; gap: 16px; padding: 12px; background: #111; border-left: 3px solid transparent; }
+  .outcome-item.gained { border-left-color: var(--green); }
+  .outcome-item.lost { border-left-color: var(--red); }
+  .outcome-item.blocked { border-left-color: #444; }
+  .outcome-item.ccw-saved { border-left-color: var(--teal); }
+  .outcome-badge { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 3px 8px; flex-shrink: 0; margin-top: 2px; }
+  .outcome-badge.g { background: var(--green); color: var(--white); }
+  .outcome-badge.l { background: var(--red); color: var(--white); }
+  .outcome-badge.b { background: #333; color: #777; }
+  .outcome-badge.t { background: var(--teal); color: var(--white); }
+  .outcome-text { font-size: 12px; line-height: 1.6; color: var(--light-gray); }
+  .outcome-why { font-size: 10px; color: #555; margin-top: 4px; font-style: italic; }
+  .outcome-ccw { font-size: 10px; color: var(--teal); margin-top: 6px; font-style: italic; border-left: 2px solid var(--teal); padding-left: 8px; }
+
+  /* ---- CCW CARD DRAW SCREEN ---- */
+  #ccw-screen { flex-direction: column; align-items: center; justify-content: center; padding: 60px 40px; background: var(--black); }
+  #ccw-screen.active { display: flex; }
+
+  .ccw-screen-title {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    color: var(--teal);
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .ccw-screen-sub {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--light-gray);
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .ccw-yosso-quote {
+    font-size: 11px;
+    font-style: italic;
+    color: var(--light-gray);
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    border-left: 3px solid var(--teal);
+    padding-left: 16px;
+    text-align: left;
+  }
+
+  .ccw-players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+    margin-bottom: 40px;
+  }
+
+  .ccw-player-draw {
     background: #0d0d0d;
     border: 1px solid #222;
     padding: 24px;
   }
 
-  .outcome-header {
+  .ccw-player-draw-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .ccw-player-draw-score {
     font-size: 9px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    letter-spacing: 2px;
     color: var(--light-gray);
+    text-transform: uppercase;
     margin-bottom: 16px;
   }
-
-  .outcome-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .outcome-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 12px;
-    background: #111;
-    border-left: 3px solid transparent;
-  }
-
-  .outcome-item.gained { border-left-color: var(--green); }
-  .outcome-item.lost { border-left-color: var(--red); }
-  .outcome-item.blocked { border-left-color: #444; opacity: 0.6; }
-
-  .outcome-badge {
+  .ccw-card-count-label {
     font-size: 9px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    padding: 3px 8px;
-    flex-shrink: 0;
-    margin-top: 2px;
+    color: var(--teal);
+    margin-bottom: 12px;
   }
+  .ccw-cards-list { display: flex; flex-direction: column; gap: 10px; }
 
-  .outcome-badge.g { background: var(--green); color: var(--white); }
-  .outcome-badge.l { background: var(--red); color: var(--white); }
-  .outcome-badge.b { background: #333; color: #777; }
-
-  .outcome-text { font-size: 12px; line-height: 1.6; color: var(--light-gray); }
-  .outcome-why { font-size: 10px; color: #555; margin-top: 4px; font-style: italic; }
-
-  /* Timer */
-  .timer-bar {
-    height: 4px;
-    background: #1a1a1a;
+  /* The actual CCW card component */
+  .ccw-card {
+    background: #071410;
+    border: 1px solid var(--teal);
+    padding: 14px 16px;
     position: relative;
-    overflow: hidden;
-  }
-
-  .timer-fill {
-    height: 100%;
-    background: var(--red);
-    transition: width 1s linear;
-  }
-
-  /* Buttons */
-  .action-btn {
-    font-family: 'Unbounded', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 14px 28px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.15s;
-    clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
-  }
-
-  .btn-primary { background: var(--red); color: var(--white); }
-  .btn-primary:hover { background: var(--white); color: var(--red); }
-
-  .btn-secondary { background: transparent; color: var(--light-gray); border: 1px solid #333; clip-path: none; }
-  .btn-secondary:hover { border-color: var(--white); color: var(--white); }
-
-  .btn-confirm { background: var(--green); color: var(--white); }
-  .btn-confirm:hover { background: var(--white); color: var(--green); }
-
-  /* Reflection phase */
-  .reflection-box {
-    background: #0a0d0a;
-    border: 1px solid var(--green);
-    padding: 24px;
-  }
-
-  .reflection-questions {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .reflection-questions li {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--light-gray);
-    padding-left: 16px;
-    border-left: 2px solid var(--green);
-  }
-
-  /* Phase header */
-  .phase-bar {
-    background: #0a0a0a;
-    border-bottom: 1px solid #1a1a1a;
-    padding: 12px 32px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .phase-steps {
-    display: flex;
-    gap: 0;
-    flex: 1;
-  }
-
-  .phase-step {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 16px;
-    color: #444;
-    border-bottom: 2px solid transparent;
+    cursor: default;
     transition: all 0.2s;
   }
+  .ccw-card.usable { cursor: pointer; }
+  .ccw-card.usable:hover { background: #0d1f18; border-color: #2acfb0; }
+  .ccw-card.used-card { opacity: 0.35; cursor: not-allowed; }
+  .ccw-card-capital {
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .ccw-card-name {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .ccw-card-desc {
+    font-size: 10px;
+    line-height: 1.6;
+    color: var(--light-gray);
+    margin-bottom: 8px;
+  }
+  .ccw-card-effect {
+    font-size: 9px;
+    color: var(--teal);
+    font-style: italic;
+  }
+  .ccw-card-bonus {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--teal);
+  }
+  .ccw-card-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .ccw-none-label {
+    font-size: 11px;
+    color: #444;
+    font-style: italic;
+    padding: 12px 0;
+  }
 
+  /* Timer */
+  .timer-bar { height: 4px; background: #1a1a1a; position: relative; overflow: hidden; }
+  .timer-fill { height: 100%; background: var(--red); transition: width 1s linear; }
+
+  /* Buttons */
+  .action-btn { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; cursor: pointer; border: none; transition: all 0.15s; clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); }
+  .btn-primary { background: var(--red); color: var(--white); }
+  .btn-primary:hover { background: var(--white); color: var(--red); }
+  .btn-secondary { background: transparent; color: var(--light-gray); border: 1px solid #333; clip-path: none; }
+  .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+  .btn-confirm { background: var(--green); color: var(--white); }
+  .btn-confirm:hover { background: var(--white); color: var(--green); }
+  .btn-teal { background: var(--teal); color: var(--white); clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); }
+  .btn-teal:hover { background: var(--white); color: var(--teal); }
+
+  .reflection-box { background: #0a0d0a; border: 1px solid var(--green); padding: 24px; }
+  .reflection-questions { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .reflection-questions li { font-size: 13px; line-height: 1.7; color: var(--light-gray); padding-left: 16px; border-left: 2px solid var(--green); }
+
+  .phase-steps { display: flex; gap: 0; flex: 1; }
+  .phase-step { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; color: #444; border-bottom: 2px solid transparent; transition: all 0.2s; }
   .phase-step.active { color: var(--amber); border-bottom-color: var(--amber); }
   .phase-step.done { color: var(--green); }
 
-  /* Resources sidebar */
-  .resource-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    margin-bottom: 8px;
-    background: #0d0d0d;
-    border: 1px solid #1a1a1a;
-  }
-
+  .resource-item { display: flex; align-items: center; gap: 10px; padding: 10px; margin-bottom: 8px; background: #0d0d0d; border: 1px solid #1a1a1a; }
   .resource-icon { font-size: 16px; width: 24px; text-align: center; }
   .resource-name { font-size: 11px; color: var(--light-gray); flex: 1; }
   .resource-status { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; }
@@ -709,153 +400,88 @@
   .resource-status.lack { color: #444; }
   .resource-status.partial { color: var(--amber); }
 
-  /* End screen */
   #end-screen { flex-direction: column; align-items: center; justify-content: center; padding: 60px 40px; }
   #end-screen.active { display: flex; }
-
-  .final-scores {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    width: 100%;
-    max-width: 900px;
-    margin: 40px 0;
-  }
-
-  .final-card {
-    background: #0d0d0d;
-    border: 1px solid #222;
-    padding: 24px;
-    text-align: center;
-  }
-
+  .final-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; width: 100%; max-width: 900px; margin: 40px 0; }
+  .final-card { background: #0d0d0d; border: 1px solid #222; padding: 24px; text-align: center; }
   .final-card.winner { border-color: var(--amber); }
+  .final-player-name { font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .final-score-big { font-family: 'Unbounded', sans-serif; font-size: 48px; font-weight: 900; line-height: 1; margin: 16px 0; }
+  .final-reflection { max-width: 700px; text-align: center; }
 
-  .final-player-name {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
+  .instructor-chip { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--black); background: var(--amber); padding: 3px 10px; display: inline-block; margin-bottom: 12px; }
 
-  .final-score-big {
-    font-family: 'Unbounded', sans-serif;
-    font-size: 48px;
-    font-weight: 900;
-    line-height: 1;
-    margin: 16px 0;
-  }
-
-  .final-reflection {
-    max-width: 700px;
-    text-align: center;
-  }
-
-  .final-reflection p {
-    font-size: 13px;
-    line-height: 1.9;
-    color: var(--light-gray);
-  }
-
-  /* Helpers */
   .flex { display: flex; }
   .gap-12 { gap: 12px; }
-  .mt-16 { margin-top: 16px; }
-  .mt-24 { margin-top: 24px; }
   .hidden { display: none !important; }
-
-  /* Instructor notes panel */
-  .instructor-chip {
-    font-size: 9px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--black);
-    background: var(--amber);
-    padding: 3px 10px;
-    display: inline-block;
-    margin-bottom: 12px;
-  }
+  .active-round, .active-pack { background: var(--amber) !important; color: var(--black) !important; border-color: var(--amber) !important; }
 </style>
 </head>
 <body>
 
-<!-- ============================
-     TITLE SCREEN
-============================= -->
+<!-- TITLE -->
 <div id="title-screen" class="screen active">
   <div class="title-badge">A Teaching Game for Intersectionality</div>
   <h1 class="game-title">ACC<span>E</span>SS</h1>
   <p class="subtitle">Who gets in. Who gets left out. Why it's never one thing.</p>
-  <p class="crenshaw-credit">Based on the framework of Dr. Kimberlé Crenshaw</p>
+  <p class="crenshaw-credit">Based on the frameworks of Dr. Kimberlé Crenshaw & Dr. Tara Yosso</p>
   <div class="flex gap-12">
     <button class="big-btn" onclick="showScreen('rules-screen')">LEARN THE RULES</button>
     <button class="big-btn" style="background:transparent;border:2px solid var(--white);color:var(--white);" onclick="showScreen('setup-screen')">QUICK START</button>
   </div>
 </div>
 
-<!-- ============================
-     RULES SCREEN
-============================= -->
+<!-- RULES -->
 <div id="rules-screen" class="screen">
-  <div style="padding:32px 40px; border-bottom:1px solid #1a1a1a; display:flex; align-items:center; gap:20px;">
-    <span class="logo" style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;">ACC<span style="color:var(--red)">E</span>SS</span>
+  <div style="padding:32px 40px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:20px;">
+    <span style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;">ACC<span style="color:var(--red)">E</span>SS</span>
     <button class="action-btn btn-secondary" onclick="showScreen('title-screen')">← BACK</button>
     <button class="action-btn btn-primary" onclick="showScreen('setup-screen')" style="margin-left:auto">PLAY NOW →</button>
   </div>
   <div style="max-width:800px;margin:0 auto;padding:60px 40px;display:flex;flex-direction:column;gap:40px;">
-
     <div>
       <h2 class="rules-title">How ACCESS Works</h2>
-      <p style="font-size:13px;color:var(--light-gray);line-height:1.8;margin-top:16px;">ACCESS is a roleplaying strategy game where 2–6 players build characters with intersecting identities, then navigate real-world Scenarios that grant or restrict access to resources. Inspired by Kimberlé Crenshaw's theory of intersectionality, the game reveals how overlapping identities create unique — and often compounding — experiences of privilege and marginalization.</p>
+      <p style="font-size:13px;color:var(--light-gray);line-height:1.8;margin-top:16px;">ACCESS is a roleplaying strategy game where players build characters with intersecting identities, then navigate real-world scenarios that grant or restrict access to resources. Grounded in Kimberlé Crenshaw's intersectionality framework and Tara Yosso's Community Cultural Wealth model, the game reveals how overlapping identities create compounding barriers — and how communities develop unique assets to resist and navigate those systems.</p>
     </div>
-
     <div class="rule-block">
-      <h3>Core Concept</h3>
-      <p>Crenshaw showed that identities like race, gender, class, and disability don't operate independently — they overlap and interact. A Black woman doesn't just experience racism + sexism as separate forces; she faces a distinct, combined form of discrimination that can't be understood by examining either alone. In ACCESS, your intersecting identities determine what doors open and which stay closed.</p>
+      <h3>Two Frameworks, One Game</h3>
+      <p>Crenshaw shows us where the barriers are — how intersecting identities create unique positions of disadvantage that single-axis frameworks miss. Yosso shows us what communities bring — six forms of Cultural Wealth developed through, not despite, navigating those barriers. Both are essential to understanding inequality fully.</p>
     </div>
-
     <div class="rule-block">
-      <h3>Game Structure — Each Round (~10 min)</h3>
+      <h3>Community Cultural Wealth Cards</h3>
+      <p>At the start of each round, players receive Cultural Wealth Cards based on their intersectional identity. Characters with more marginalized identities receive more cards — because Yosso argues these capitals are developed through the experience of navigating hostile systems. These cards can be played during the Reveal phase to shift outcomes. A character with deep Resistant Capital might outperform a privileged character who has no community wealth to draw on.</p>
+    </div>
+    <div class="rule-block">
+      <h3>Card Allocation</h3>
       <ul>
-        <li><strong>Phase 1 — Read the Scenario (1 min):</strong> A life situation is revealed: a job interview, a hospital visit, a housing application, a police encounter, etc.</li>
-        <li><strong>Phase 2 — Strategy Discussion (3 min):</strong> Players discuss how their identities might affect their outcomes. What advantages or barriers do you anticipate? Why?</li>
-        <li><strong>Phase 3 — Choose Your Approach (1 min):</strong> Each player selects a strategy card for how to navigate the scenario.</li>
-        <li><strong>Phase 4 — Reveal Outcomes (3 min):</strong> Access is granted or denied based on intersecting identities. Players narrate their character's experience.</li>
-        <li><strong>Phase 5 — Reflection (2 min):</strong> Instructor-guided debrief connects outcomes to Crenshaw's framework and real-world data.</li>
+        <li>Access Score 70–100 → 0 Community Wealth cards</li>
+        <li>Access Score 50–69 → 1 Community Wealth card</li>
+        <li>Access Score 35–49 → 2 Community Wealth cards</li>
+        <li>Access Score below 35 → 3 Community Wealth cards</li>
       </ul>
     </div>
-
     <div class="rule-block">
-      <h3>Winning — But It's Complicated</h3>
-      <p>Players track an Access Score. But the goal isn't to "win" via privilege — the game tracks <em>narrative richness</em>: how compellingly you articulate your character's experience. Players with more marginalized identities have more systemic barriers, but those barriers generate richer, more complex stories. The Reflection Phase often reframes who "won."</p>
-    </div>
-
-    <div class="rule-block">
-      <h3>Identity Dimensions</h3>
+      <h3>Round Structure (~10 min)</h3>
       <ul>
-        <li><strong>Race/Ethnicity</strong> — central to Crenshaw's original analysis of Black women in the workplace</li>
-        <li><strong>Gender</strong> — including trans and non-binary identities, which face compounding barriers</li>
-        <li><strong>Class</strong> — socioeconomic position shapes access to nearly every resource</li>
-        <li><strong>Disability Status</strong> — often invisible in mainstream frameworks, highlighted by Crenshaw</li>
-        <li><strong>Sexuality</strong> — intersects with all other dimensions to create unique vulnerabilities</li>
+        <li><strong>Phase 1 — Read (1 min):</strong> A life scenario is revealed.</li>
+        <li><strong>Phase 2 — Community Wealth Draw:</strong> Cards are drawn based on identity scores.</li>
+        <li><strong>Phase 3 — Discuss (3 min):</strong> How will identities and cultural wealth interact?</li>
+        <li><strong>Phase 4 — Choose Approach (1 min):</strong> Select a strategy for navigating the scenario.</li>
+        <li><strong>Phase 5 — Reveal & Play Cards (3 min):</strong> Outcomes are revealed. Players may play a Wealth Card to shift results and narrate why.</li>
+        <li><strong>Phase 6 — Reflect (2 min):</strong> Debrief connects to Crenshaw and Yosso.</li>
       </ul>
     </div>
-
-    <div style="background:#0d0d0d;border:1px solid var(--amber);padding:24px;">
-      <div class="instructor-chip">INSTRUCTOR NOTE</div>
-      <p style="font-size:12px;line-height:1.8;color:var(--light-gray);">Before starting, briefly introduce Crenshaw's 1989 paper "Demarginalizing the Intersection of Race and Sex." Remind students that character identities in this game are roles to inhabit thoughtfully — not performances. Students should feel free to choose identities different from their own, and should approach others' experiences with curiosity and care. After each round, anchor the debrief to the assigned readings.</p>
+    <div style="background:#0d0d0d;border:1px solid var(--teal);padding:24px;">
+      <div class="instructor-chip" style="background:var(--teal);">INSTRUCTOR NOTE</div>
+      <p style="font-size:12px;line-height:1.8;color:var(--light-gray);">When students play a Cultural Wealth Card, ask them to narrate it: "Describe how your character's Navigational Capital shows up in this moment. What specifically do they know, who do they call, what do they do?" The card is a prompt for storytelling, not just a mechanical bonus. This is where the richest learning happens.</p>
     </div>
-
     <div style="text-align:center;">
       <button class="big-btn" onclick="showScreen('setup-screen')">START GAME →</button>
     </div>
   </div>
 </div>
 
-<!-- ============================
-     SETUP SCREEN
-============================= -->
+<!-- SETUP -->
 <div id="setup-screen" class="screen">
   <div class="screen-header">
     <span style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;">ACC<span style="color:var(--red)">E</span>SS</span>
@@ -863,23 +489,19 @@
     <button class="action-btn btn-secondary" onclick="showScreen('title-screen')" style="margin-left:auto">← BACK</button>
   </div>
   <div class="setup-body">
-    <div class="setup-panel" style="overflow-y:auto;">
+    <div class="setup-panel">
       <div class="panel-label">01 — Players</div>
-      <div class="players-section" id="players-list">
-        <!-- rendered by JS -->
-      </div>
+      <div class="players-section" id="players-list"></div>
       <div style="display:flex;gap:12px;margin-bottom:32px;">
         <button class="action-btn btn-secondary" onclick="addPlayer()">+ ADD PLAYER</button>
         <button class="action-btn btn-secondary" onclick="removePlayer()">− REMOVE</button>
       </div>
-
       <div class="panel-label">02 — Rounds</div>
       <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px;">
         <button class="action-btn btn-secondary round-btn active-round" data-rounds="3" onclick="setRounds(3)">3 ROUNDS</button>
         <button class="action-btn btn-secondary round-btn" data-rounds="5" onclick="setRounds(5)">5 ROUNDS</button>
         <button class="action-btn btn-secondary round-btn" data-rounds="7" onclick="setRounds(7)">7 ROUNDS</button>
       </div>
-
       <div class="panel-label">03 — Scenario Pack</div>
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:32px;">
         <button class="action-btn btn-secondary pack-btn active-pack" data-pack="workplace">WORKPLACE</button>
@@ -887,31 +509,31 @@
         <button class="action-btn btn-secondary pack-btn" data-pack="housing">HOUSING & LEGAL</button>
         <button class="action-btn btn-secondary pack-btn" data-pack="education">EDUCATION</button>
       </div>
-
       <button class="action-btn btn-primary" onclick="startGame()" style="width:100%">START GAME →</button>
     </div>
-
-    <div class="setup-panel" style="overflow-y:auto;">
+    <div class="setup-panel">
       <div class="panel-label">04 — Build Your Character</div>
-      <p style="font-size:11px;color:var(--light-gray);margin-bottom:20px;line-height:1.7;">Select one identity from each dimension. Your intersecting identities will determine how scenarios unfold.</p>
-      
+      <p style="font-size:11px;color:var(--light-gray);margin-bottom:20px;line-height:1.7;">Select one identity from each dimension. Your intersecting identities shape both your systemic barriers and your Community Cultural Wealth.</p>
       <div id="current-player-label" style="font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;color:var(--amber);margin-bottom:16px;letter-spacing:1px;">PLAYER 1</div>
-
-      <div id="identity-builder">
-        <!-- rendered by JS -->
-      </div>
-
+      <div id="identity-builder"></div>
       <div class="character-preview" id="character-preview">
         <div class="char-name" id="preview-name">–</div>
         <div class="char-tags" id="preview-tags"></div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--light-gray);margin-bottom:6px;">STARTING ACCESS SCORE</div>
-        <div style="display:flex;align-items:baseline;gap:10px;">
-          <div class="access-score-value" id="preview-score">–</div>
-          <div style="font-size:11px;color:var(--light-gray);">/ 100</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div>
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--light-gray);margin-bottom:6px;">ACCESS SCORE</div>
+            <div style="display:flex;align-items:baseline;gap:8px;">
+              <div style="font-family:'Unbounded',sans-serif;font-size:28px;font-weight:900;" id="preview-score">–</div>
+              <div style="font-size:11px;color:var(--light-gray);">/ 100</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">WEALTH CARDS</div>
+            <div style="font-family:'Unbounded',sans-serif;font-size:28px;font-weight:900;color:var(--teal);" id="preview-cards">–</div>
+          </div>
         </div>
         <div style="font-size:10px;color:#444;margin-top:8px;font-style:italic;" id="preview-note"></div>
       </div>
-
       <div style="display:flex;gap:12px;margin-top:16px;">
         <button class="action-btn btn-secondary" onclick="prevPlayerSetup()">← PREV</button>
         <button class="action-btn btn-confirm" onclick="nextPlayerSetup()" style="flex:1">NEXT PLAYER →</button>
@@ -920,9 +542,18 @@
   </div>
 </div>
 
-<!-- ============================
-     GAME SCREEN
-============================= -->
+<!-- CCW DRAW SCREEN -->
+<div id="ccw-screen" class="screen">
+  <div class="ccw-screen-title">Community Wealth Draw</div>
+  <div class="ccw-screen-sub">Round <span id="ccw-round-num">1</span> — Before the Scenario</div>
+  <div class="ccw-yosso-quote">
+    "Community Cultural Wealth is an array of knowledge, skills, abilities and contacts possessed and utilized by Communities of Color to survive and resist macro and micro-forms of oppression." — Dr. Tara Yosso
+  </div>
+  <div class="ccw-players-grid" id="ccw-players-grid"></div>
+  <button class="action-btn btn-teal" onclick="proceedFromCCW()" style="font-size:13px;padding:18px 40px;">PROCEED TO SCENARIO →</button>
+</div>
+
+<!-- GAME SCREEN -->
 <div id="game-screen" class="screen">
   <div class="screen-header">
     <span style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;">ACC<span style="color:var(--red)">E</span>SS</span>
@@ -937,60 +568,37 @@
     <button class="action-btn btn-secondary" onclick="showScreen('title-screen')" style="font-size:10px;padding:8px 14px;clip-path:none;">QUIT</button>
   </div>
   <div class="timer-bar"><div class="timer-fill" id="timer-fill" style="width:100%"></div></div>
-
   <div class="game-layout">
-    <!-- Left sidebar: Players -->
     <div class="sidebar">
-      <div class="sidebar-title">Players</div>
+      <div class="sidebar-title">Players & Wealth</div>
       <div id="player-cards-sidebar"></div>
-
       <div class="sidebar-title" style="margin-top:24px;">Crenshaw's Lens</div>
       <div style="font-size:11px;line-height:1.8;color:var(--light-gray);font-style:italic;border-left:2px solid var(--red);padding-left:12px;" id="crenshaw-quote"></div>
     </div>
-
-    <!-- Center: Scenario -->
     <div class="game-center">
-      <div id="phase-read">
-        <div class="scenario-card" id="scenario-card"></div>
-      </div>
-
-      <div id="phase-discuss" class="hidden">
-        <div class="discussion-box" id="discussion-box"></div>
-      </div>
-
+      <div id="phase-read"><div class="scenario-card" id="scenario-card"></div></div>
+      <div id="phase-discuss" class="hidden"><div id="discussion-box"></div></div>
       <div id="phase-choose" class="hidden">
         <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--light-gray);margin-bottom:16px;">CHOOSE YOUR APPROACH</div>
         <div class="access-options" id="access-options"></div>
       </div>
-
-      <div id="phase-reveal" class="hidden">
-        <div class="outcome-display" id="outcome-display"></div>
-      </div>
-
-      <div id="phase-reflect" class="hidden">
-        <div class="reflection-box" id="reflection-box"></div>
-      </div>
-
-      <div style="display:flex;gap:12px;margin-top:auto;">
+      <div id="phase-reveal" class="hidden"><div class="outcome-display" id="outcome-display"></div></div>
+      <div id="phase-reflect" class="hidden"><div id="reflect-box"></div></div>
+      <div style="display:flex;gap:12px;margin-top:auto;padding-top:16px;">
         <button class="action-btn btn-secondary hidden" id="btn-prev-phase" onclick="prevPhase()">← BACK</button>
         <button class="action-btn btn-primary" id="btn-next-phase" onclick="nextPhase()">NEXT →</button>
       </div>
     </div>
-
-    <!-- Right sidebar: Resources -->
     <div class="sidebar">
       <div class="sidebar-title">Resource Tracker</div>
       <div id="resource-tracker"></div>
-
       <div class="sidebar-title" style="margin-top:24px;">Scenario Context</div>
       <div id="scenario-context" style="font-size:11px;color:var(--light-gray);line-height:1.8;"></div>
     </div>
   </div>
 </div>
 
-<!-- ============================
-     END SCREEN
-============================= -->
+<!-- END SCREEN -->
 <div id="end-screen" class="screen">
   <div style="font-family:'Unbounded',sans-serif;font-weight:900;font-size:48px;letter-spacing:-2px;color:var(--white);text-align:center;">GAME OVER</div>
   <div style="font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--light-gray);margin-top:12px;text-align:center;">Final Access Scores & Reflection</div>
@@ -1007,9 +615,90 @@
 
 <script>
 // =========================================
-// DATA
+// COMMUNITY CULTURAL WEALTH DATA
+// Based on Tara Yosso (2005)
 // =========================================
+const CCW_CARDS = [
+  {
+    id: 'aspirational',
+    capital: 'Aspirational Capital',
+    icon: '🌠',
+    name: 'Eyes on the Horizon',
+    desc: 'Your character maintains hopes and dreams for the future even in the face of real and perceived barriers. This is not naive optimism — it is a practiced survival skill developed through generations of persisting against systems designed to foreclose possibility.',
+    effect: 'Your character draws on their vision of what should be, not just what is, to find an unexpected angle in this situation.',
+    bonus: 12,
+    color: '#b58900'
+  },
+  {
+    id: 'linguistic',
+    capital: 'Linguistic Capital',
+    icon: '🗣️',
+    name: 'The Power of Many Tongues',
+    desc: 'Your character moves fluidly between languages, registers, and communicative styles — from formal institutional English to family vernacular to community-specific ways of knowing. This is not a deficit. It is a form of intelligence that monolingual, dominant-culture speakers often lack.',
+    effect: 'Your character reads the room in ways others cannot, translating between worlds and finding the precise language to open a door.',
+    bonus: 13,
+    color: '#2aa198'
+  },
+  {
+    id: 'familial',
+    capital: 'Familial Capital',
+    icon: '🤲',
+    name: 'Deep Roots',
+    desc: 'Your character carries the knowledge, guidance, and collective memory of their family and community — not just immediate family but expansive networks of kin, elders, and community members who have navigated these exact systems before. This knowledge is transmitted through stories, warnings, and strategies passed down across generations.',
+    effect: 'Your character recalls exactly what their grandmother said about this kind of situation — and it\'s precisely the right move.',
+    bonus: 14,
+    color: '#cb4b16'
+  },
+  {
+    id: 'social',
+    capital: 'Social Capital',
+    icon: '🕸️',
+    name: 'The Network You Built',
+    desc: 'Your character has cultivated networks of people and community resources — not through elite institutions or inherited connections, but through mutual aid, solidarity, and showing up for others. These relationships create reciprocal bonds of support that can be called upon when institutions fail.',
+    effect: 'Your character knows exactly who to call. The connection isn\'t prestigious — it\'s real, and it\'s ready.',
+    bonus: 15,
+    color: '#268bd2'
+  },
+  {
+    id: 'navigational',
+    capital: 'Navigational Capital',
+    icon: '🧭',
+    name: 'Knowing the Terrain',
+    desc: 'Your character has developed the skill to maneuver through institutions that were not built for them — healthcare systems, legal systems, educational bureaucracies, corporate hierarchies. This navigation is not simple compliance; it requires reading institutional culture, identifying who actually holds power, knowing which rules are real and which are enforced selectively, and moving strategically through hostile terrain.',
+    effect: 'Your character has been here before — not this exact office, but this exact dynamic. They know the side door.',
+    bonus: 16,
+    color: '#6c71c4'
+  },
+  {
+    id: 'resistant',
+    capital: 'Resistant Capital',
+    icon: '✊',
+    name: 'The Will to Challenge',
+    desc: 'Your character carries knowledge and skills developed through resistance to subordination. This is not just anger — it is a historically grounded understanding of how power works, what has been tried before, what succeeded and what failed, and why the system produces these outcomes. It is the knowledge that comes from being on the receiving end of injustice long enough to understand it structurally.',
+    effect: 'Your character names the dynamic out loud — clearly, without flinching — and shifts the terms of the encounter.',
+    bonus: 18,
+    color: '#dc322f'
+  }
+];
 
+// Card count by access score
+function getCCWCardCount(score) {
+  if (score >= 70) return 0;
+  if (score >= 50) return 1;
+  if (score >= 35) return 2;
+  return 3;
+}
+
+// Deal cards to a player (random selection, no repeats)
+function dealCCWCards(count) {
+  if (count === 0) return [];
+  const shuffled = [...CCW_CARDS].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count).map(c => ({ ...c, used: false }));
+}
+
+// =========================================
+// IDENTITY DATA
+// =========================================
 const IDENTITIES = {
   race: {
     label: "Race / Ethnicity",
@@ -1061,6 +750,9 @@ const IDENTITIES = {
   }
 };
 
+// =========================================
+// SCENARIOS
+// =========================================
 const SCENARIOS = {
   workplace: [
     {
@@ -1068,19 +760,20 @@ const SCENARIOS = {
       title: "The Job Interview",
       desc: "You're interviewing for a management position at a mid-size firm. The interview panel is all white men. Your qualifications exceed the job description — but the 'culture fit' question comes up repeatedly. Research shows identical resumes receive fewer callbacks when the name 'sounds' Black or female.",
       crenshawQuote: "\"[Black women] experience neither simple racism nor simple sexism, but a complex of racism and sexism that is often greater than the sum of its parts.\" — Kimberlé Crenshaw",
-      context: "Studies: Audit studies show callback rates drop 30% for Black-sounding names. Women in male-dominated fields face 'role congruity' bias. These effects compound — Black women face discrimination as neither 'generic Black' nor 'generic woman.'",
-      discussionPrompt: "Before choosing your approach: How do you think each player's intersecting identities will affect the interviewer's perception? What biases might activate — and how might they compound?",
+      context: "Audit studies show callback rates drop 30% for Black-sounding names. Women in male-dominated fields face 'role congruity' bias. These effects compound — Black women face discrimination as neither 'generic Black' nor 'generic woman.'",
+      discussionPrompt: "How do you think each player's intersecting identities will affect the interviewer's perception? What biases might activate — and how might they compound? How might Cultural Wealth cards shift the outcome?",
       approaches: [
-        { id: "direct", name: "Assert Qualifications", icon: "📋", desc: "Directly address your credentials and redirect every question to your professional track record.", modifiers: {race: {black:-5,hispanic:-3,white:5}, gender: {'cis-woman':-4,'trans-woman':-8,'cis-man':3}, class:{poor:-3,upper:5}} },
+        { id: "direct", name: "Assert Qualifications", icon: "📋", desc: "Directly address your credentials and redirect every question to your professional track record.", modifiers: {race:{black:-5,hispanic:-3,white:5}, gender:{'cis-woman':-4,'trans-woman':-8,'cis-man':3}, class:{poor:-3,upper:5}} },
         { id: "network", name: "Leverage Connections", icon: "🤝", desc: "Name-drop a mutual connection or reference someone inside the organization.", modifiers: {class:{upper:10,middle:3,working:-5,poor:-8}} },
-        { id: "conform", name: "Code-Switch", icon: "🎭", desc: "Minimize markers of your identity — adjust speech, presentation, affect — to fit dominant expectations.", modifiers: {race:{black:-3,white:3}, gender:{'trans-woman':-8,'nonbinary':-6}} },
+        { id: "conform", name: "Code-Switch", icon: "🎭", desc: "Minimize markers of your identity to fit dominant expectations.", modifiers: {race:{black:-3,white:3}, gender:{'trans-woman':-8,'nonbinary':-6}} },
         { id: "authentic", name: "Stay Authentic", icon: "🌟", desc: "Present your full identity without code-switching — advocate for yourself as you are.", modifiers: {race:{black:-8,indigenous:-8,white:2}, gender:{'cis-woman':-5,'trans-woman':-12,'nonbinary':-10}} }
       ],
       resources: ["💼 Employment", "💰 Income", "🏥 Healthcare", "🤝 Professional Network"],
       reflection: [
-        "Who was most disadvantaged in this scenario — and was it for one reason or multiple intersecting ones?",
-        "How did Code-Switching affect outcomes differently across identities? What does this reveal about whose 'normal' is centered?",
-        "Crenshaw argues that anti-discrimination law fails Black women because it treats race and sex as separate. How did this scenario show that they can't be separated?",
+        "Who was most disadvantaged — and was it for one reason or multiple intersecting ones?",
+        "How did Code-Switching affect outcomes differently across identities? Whose 'normal' is being centered?",
+        "Crenshaw coined intersectionality analyzing DeGraffenreid v. General Motors — where Black women's claims were dismissed because Black men weren't fired and white women weren't harassed. How does this scenario show race and gender cannot be separated?",
+        "Where did Cultural Wealth cards shift outcomes the system was designed to block? What does that reveal about community resilience?",
         "What would this workplace need to change structurally to produce equitable outcomes?"
       ]
     },
@@ -1090,7 +783,7 @@ const SCENARIOS = {
       desc: "A colleague makes repeated comments about your appearance and shares an offensive joke in a Slack channel. You've documented three incidents. HR is run by a close friend of the colleague. Research shows complaints are more likely to be dismissed for workers with marginalized identities.",
       crenshawQuote: "\"The primary beneficiaries of policies against sexual harassment are those whose experiences are centered in the policies' design.\" — Kimberlé Crenshaw",
       context: "EEOC data: Black women are more likely to face sexual harassment and less likely to see complaints resolved. Trans workers face significantly higher rates of hostile work environment claims dismissed. Low-income workers fear retaliation more than higher-wage earners.",
-      discussionPrompt: "Consider: Who in the room would likely be taken most seriously if they filed a complaint? Who has the most to lose by reporting? How does intersectionality explain these differences?",
+      discussionPrompt: "Who in the room would likely be taken most seriously if they filed a complaint? Who has the most to lose by reporting? How does intersectionality explain these differences? Which Cultural Wealth might be most useful here?",
       approaches: [
         { id: "formal", name: "File Formal Complaint", icon: "📝", desc: "Submit documented complaint through official HR channels.", modifiers: {race:{black:-8,white:5,hispanic:-5}, gender:{'trans-woman':-12,'cis-woman':-5,'cis-man':3}, class:{poor:-5,upper:5}} },
         { id: "escalate", name: "Escalate to Leadership", icon: "⬆️", desc: "Go above HR directly to senior leadership.", modifiers: {class:{upper:8,middle:2,working:-4,poor:-8}} },
@@ -1100,18 +793,18 @@ const SCENARIOS = {
       resources: ["⚖️ Legal Protection", "💼 Employment", "🧠 Mental Health", "🤝 Professional Network"],
       reflection: [
         "How did the intersectionality of race and gender affect whose complaint would be most credible?",
-        "What does it mean that 'coalition building' was one of the more effective strategies for marginalized workers?",
-        "Crenshaw coined 'intersectionality' while analyzing the case DeGraffenreid v. General Motors — where Black women's claims were dismissed because Black men weren't fired and white women weren't harassed. How does this connect to today's scenario?",
+        "What does it mean that coalition building was one of the more effective strategies for marginalized workers? How does this connect to Yosso's Social and Resistant Capital?",
+        "Crenshaw coined intersectionality analyzing the case where Black women's claims were dismissed because the single-axis framework couldn't see their unique position. How did that appear here?",
         "What structural changes would make harassment reporting systems more equitable?"
       ]
     },
     {
       id: "promotion-gap",
       title: "The Promotion Gap",
-      desc: "You've been passed over for promotion twice. A colleague with fewer years' experience — and lower performance reviews — was promoted instead. When you ask your manager, they cite 'leadership presence' and 'executive readiness.' Neither term has been defined. You have the same qualifications.",
+      desc: "You've been passed over for promotion twice. A colleague with fewer years' experience — and lower performance reviews — was promoted instead. When you ask your manager, they cite 'leadership presence' and 'executive readiness.' Neither term has been defined.",
       crenshawQuote: "\"Intersectionality is a lens through which you can see where power comes and collides, where it interlocks and intersects.\" — Kimberlé Crenshaw",
-      context: "McKinsey/LeanIn data: Black women are the most underrepresented group in corporate management. For every 100 men promoted to manager, only 58 Black women are. Disability status further reduces promotion likelihood. 'Leadership presence' as a criterion often encodes racial and gender bias.",
-      discussionPrompt: "'Leadership presence' — who gets described this way and who doesn't? Before revealing outcomes, predict which characters will be told they lack it and which won't.",
+      context: "McKinsey/LeanIn: Black women are the most underrepresented group in corporate management. For every 100 men promoted to manager, only 58 Black women are. 'Leadership presence' as a criterion often encodes racial and gender bias.",
+      discussionPrompt: "'Leadership presence' — who gets described this way and who doesn't? Predict which characters will be told they lack it. How might Navigational or Resistant Capital change the outcome?",
       approaches: [
         { id: "ask", name: "Request Specific Criteria", icon: "🔍", desc: "Ask your manager to define 'leadership presence' in measurable terms.", modifiers: {gender:{'cis-man':5,'cis-woman':-5,'trans-woman':-8,'nonbinary':-6}, race:{white:5,black:-6}} },
         { id: "mentor", name: "Seek Executive Sponsor", icon: "🌟", desc: "Find a senior leader who will advocate for you with leadership.", modifiers: {class:{upper:8,middle:2,working:-4,poor:-8}} },
@@ -1121,8 +814,8 @@ const SCENARIOS = {
       resources: ["💼 Employment", "💰 Income", "🤝 Professional Network", "📈 Career Growth"],
       reflection: [
         "How is 'leadership presence' an example of what Crenshaw calls structural discrimination — bias embedded in neutral-seeming criteria?",
-        "Who had the most options in this scenario? What identity features gave them those options?",
-        "Research shows Black women are often seen as 'too aggressive' when they assert themselves but 'not leadership material' when they don't. How does this double-bind appear in our game?",
+        "Research shows Black women are often seen as 'too aggressive' when they assert themselves but 'not leadership material' when they don't. How does this double-bind appear in the game?",
+        "Where did Cultural Wealth cards open doors the system was designed to close? What does that tell us about how communities survive hostile institutions?",
         "What would equitable promotion criteria look like?"
       ]
     }
@@ -1131,10 +824,10 @@ const SCENARIOS = {
     {
       id: "pain-ignored",
       title: "Pain Not Believed",
-      desc: "You go to the ER with severe pain. You've been waiting 4 hours. When you finally see a doctor, they seem skeptical of your pain level and suggest it may be 'anxiety.' Research shows pain reports from certain patients are systematically under-treated — a pattern with documented racial and gender dimensions.",
+      desc: "You go to the ER with severe pain. You've been waiting 4 hours. When you finally see a doctor, they seem skeptical of your pain level and suggest it may be 'anxiety.' Research shows pain reports from certain patients are systematically under-treated.",
       crenshawQuote: "\"The convergence of sexism and racism in the lives of Black women contributes to a marginalization that is more profound than the sum of both.\" — Kimberlé Crenshaw",
-      context: "Research: A 2016 study found many medical students held false beliefs that Black patients feel less pain. Women's pain is dismissed as 'emotional' at significantly higher rates. Black women with lupus — predominantly a disease of Black women — experience 3–5 year delays in diagnosis. Trans patients face open hostility in ERs.",
-      discussionPrompt: "The doctor has formed an impression before you've spoken much. How does your character's identity shape that impression? How might multiple identities interact to make pain dismissal more or less likely?",
+      context: "A 2016 study found many medical students held false beliefs that Black patients feel less pain. Women's pain is dismissed as 'emotional' at significantly higher rates. Black women with lupus experience 3–5 year delays in diagnosis. Trans patients face open hostility in ERs.",
+      discussionPrompt: "The doctor has formed an impression before you've spoken much. How does your character's identity shape that impression? How might Navigational Capital — knowing how to move through hostile institutions — change what's possible?",
       approaches: [
         { id: "advocate", name: "Firmly Advocate", icon: "🗣️", desc: "Clearly and repeatedly state your pain level and request specific tests.", modifiers: {gender:{'cis-man':8,'cis-woman':-5,'trans-woman':-10,'nonbinary':-8}, race:{black:-8,white:5}} },
         { id: "documentation", name: "Reference Documentation", icon: "📋", desc: "Present prior medical records and written pain documentation.", modifiers: {class:{upper:6,middle:3,working:-2,poor:-6}} },
@@ -1143,9 +836,9 @@ const SCENARIOS = {
       ],
       resources: ["🏥 Healthcare", "🧠 Mental Health", "💰 Income", "⚖️ Legal Protection"],
       reflection: [
-        "Crenshaw argues that single-axis frameworks miss the unique position of Black women. How did this appear in the healthcare scenario?",
+        "Crenshaw argues single-axis frameworks miss the unique position of Black women. How did this appear in the healthcare scenario?",
         "What surprised you about how class interacted with race and gender in accessing medical care?",
-        "How does the concept of medical mistrust (a historically earned distrust of the medical system) connect to this scenario?",
+        "How does the concept of medical mistrust — a historically earned distrust of the medical system — connect to this scenario? How is that mistrust itself a form of Navigational Capital?",
         "What would patient-centered, intersectionally aware healthcare look like?"
       ]
     }
@@ -1154,10 +847,10 @@ const SCENARIOS = {
     {
       id: "housing-application",
       title: "The Rental Application",
-      desc: "You've applied for an apartment in a desirable neighborhood. Your application is strong — good income, references, no prior evictions. The landlord has met with you once. You receive a vague rejection citing 'concerns about fit.' The same unit was later listed again. Fair housing law prohibits discrimination, but proving it is nearly impossible.",
+      desc: "You've applied for an apartment in a desirable neighborhood. Your application is strong — good income, references, no prior evictions. You receive a vague rejection citing 'concerns about fit.' The same unit was listed again the following week. Fair housing law prohibits discrimination, but proving it is nearly impossible.",
       crenshawQuote: "\"Intersectionality helps us understand how structural forces shape individual lives in ways that no single lens can capture.\" — Kimberlé Crenshaw",
-      context: "Audit studies: Landlords reject applications from Black and Latino applicants at significantly higher rates with identical qualifications. LGBTQ+ applicants, especially trans individuals, face discrimination in housing. Disabled applicants face denial despite legal protections. Low-income applicants face informal credit screening that disadvantages communities of color.",
-      discussionPrompt: "The landlord can legally require income and credit information. What other 'signals' might they be reading — consciously or not? How do your identities affect what signals you're sending?",
+      context: "Audit studies: Landlords reject Black and Latino applicants at significantly higher rates with identical qualifications. LGBTQ+ applicants, especially trans individuals, face significant housing discrimination. Low-income applicants face informal credit screening that disadvantages communities of color.",
+      discussionPrompt: "The landlord can legally require income and credit information. What other 'signals' might they be reading — consciously or not? How do your identities affect what signals you're sending? Which Cultural Wealth cards might shift the power dynamic?",
       approaches: [
         { id: "appeal", name: "Appeal the Decision", icon: "📬", desc: "Write a formal appeal emphasizing your qualifications and requesting a reason.", modifiers: {class:{upper:5,middle:2,working:-2,poor:-5}, race:{black:-6,white:4}} },
         { id: "legal", name: "Contact Fair Housing", icon: "⚖️", desc: "File a complaint with a fair housing organization or legal aid clinic.", modifiers: {class:{poor:-5,working:-3,middle:3,upper:6}, disability:{'physical':-4}} },
@@ -1166,10 +859,10 @@ const SCENARIOS = {
       ],
       resources: ["🏠 Housing", "⚖️ Legal Protection", "💰 Income", "🌐 Community"],
       reflection: [
-        "Housing segregation has been described as the 'structural backbone' of American inequality. How do discriminatory housing practices interact with wealth, health, and education gaps?",
+        "Housing segregation has been called the structural backbone of American inequality. How do discriminatory housing practices interact with wealth, health, and education gaps?",
         "Which approaches were available to more privileged players but not others? What does that reveal?",
         "Crenshaw's work often centers what happens when structural discrimination is invisible. How is housing discrimination designed to be invisible?",
-        "What policies or practices might reduce intersectional housing discrimination?"
+        "Where did Familial or Social Capital — community networks — create options that institutional channels couldn't provide?"
       ]
     }
   ],
@@ -1177,10 +870,10 @@ const SCENARIOS = {
     {
       id: "financial-aid",
       title: "The Financial Aid Gap",
-      desc: "You're applying for a merit scholarship at your university. Your GPA and extracurriculars qualify you — but the process requires letters of recommendation from faculty you've never spoken to, a personal essay, and a department interview. Students with more social capital navigate this process more easily.",
+      desc: "You're applying for a merit scholarship at your university. Your GPA and extracurriculars qualify you — but the process requires letters from faculty you've never spoken to, a personal essay, and a department interview. Students with more social capital navigate this process more easily.",
       crenshawQuote: "\"Not all Black women experience racism and sexism the same way. It depends on all the other identities that come into play.\" — Kimberlé Crenshaw",
-      context: "Research: First-generation college students, students of color, and students with disabilities are significantly less likely to win institutional scholarships despite equal qualifications. Faculty mentorship is not equally distributed — research shows faculty are more likely to mentor students who remind them of themselves. Working-class students often can't take unpaid internships required to be 'competitive.'",
-      discussionPrompt: "The scholarship requires 'demonstrated leadership and character.' Who gets to define leadership and character? How might bias operate in a department interview?",
+      context: "First-generation college students, students of color, and students with disabilities are significantly less likely to win institutional scholarships despite equal qualifications. Faculty are more likely to mentor students who remind them of themselves. Working-class students often can't take unpaid internships required to be 'competitive.'",
+      discussionPrompt: "The scholarship requires 'demonstrated leadership and character.' Who gets to define these? How might Aspirational Capital — maintaining dreams against real barriers — show up in a personal essay?",
       approaches: [
         { id: "professors", name: "Cultivate Relationships", icon: "🎓", desc: "Invest in office hours and building relationships with faculty who can write letters.", modifiers: {race:{white:6,black:-5,hispanic:-3}, gender:{'cis-man':3,'cis-woman':-2,'trans-woman':-8,'nonbinary':-6}} },
         { id: "advising", name: "Use Academic Advising", icon: "📚", desc: "Get institutional support from advising resources to navigate the process.", modifiers: {class:{poor:3,working:3,middle:1}, disability:{'physical':2,'mental-health':1}} },
@@ -1190,8 +883,8 @@ const SCENARIOS = {
       resources: ["🎓 Education Access", "💰 Income", "📈 Career Growth", "🤝 Professional Network"],
       reflection: [
         "How does 'merit' function in this scenario? Who has had advantages in building the credentials that count as merit?",
-        "First-generation students often lack the 'hidden curriculum' of how to navigate institutions. How does this connect to class intersecting with race?",
-        "Crenshaw talks about how anti-discrimination law focuses on intentional bias. What forms of unintentional or structural bias appeared in this scenario?",
+        "First-generation students often lack the 'hidden curriculum' of institutional navigation. How does this connect to class intersecting with race? How is Navigational Capital a response to this?",
+        "Where did Aspirational Capital — maintaining hope against barriers — show up? How is that hope itself a form of resistance?",
         "What would genuinely equitable scholarship selection look like?"
       ]
     }
@@ -1211,35 +904,23 @@ const CRENSHAW_QUOTES = [
 let state = {
   numPlayers: 2,
   players: [
-    { name: "Player 1", identities: {}, score: 50 },
-    { name: "Player 2", identities: {}, score: 50 }
+    { name: "Player 1", identities: {}, score: 50, ccwCards: [], ccwUsedThisRound: [] },
+    { name: "Player 2", identities: {}, score: 50, ccwCards: [], ccwUsedThisRound: [] }
   ],
   totalRounds: 3,
   currentRound: 0,
-  currentPhase: 0, // 0=read,1=discuss,2=choose,3=reveal,4=reflect
+  currentPhase: 0,
   scenarioPack: 'workplace',
   scenarios: [],
   currentScenario: null,
   playerChoices: {},
   setupPlayerIndex: 0,
   timerInterval: null,
-  timerSeconds: 0,
-  resources: {
-    "💼 Employment": 50,
-    "💰 Income": 50,
-    "🏥 Healthcare": 50,
-    "🏠 Housing": 50,
-    "🎓 Education Access": 50,
-    "⚖️ Legal Protection": 50,
-    "🧠 Mental Health": 50,
-    "🤝 Professional Network": 50,
-    "🌐 Community": 50,
-    "📈 Career Growth": 50
-  }
+  timerSeconds: 0
 };
 
 const PHASES = ['read', 'discuss', 'choose', 'reveal', 'reflect'];
-const PHASE_TIMES = [60, 180, 60, 180, 120]; // seconds
+const PHASE_TIMES = [60, 180, 60, 180, 120];
 
 // =========================================
 // UTILITY
@@ -1258,33 +939,28 @@ function calcBaseScore(identities) {
   return Math.max(5, Math.min(100, score));
 }
 
-function getPlayer(idx) { return state.players[idx]; }
-
 // =========================================
 // SETUP
 // =========================================
 function renderSetup() {
-  // Render player list
   const pl = document.getElementById('players-list');
   pl.innerHTML = '';
   state.players.forEach((p, i) => {
     pl.innerHTML += `<div class="player-row">
       <div class="player-num">${i+1}</div>
       <input class="player-name-input" placeholder="Player ${i+1} name" value="${p.name}" oninput="state.players[${i}].name=this.value;renderCharPreview()">
-      <span style="font-size:9px;letter-spacing:2px;color:${state.players[i].identities && Object.keys(state.players[i].identities).length>=5?'var(--green)':'var(--amber)'}">${Object.keys(state.players[i].identities||{}).length}/5</span>
+      <span style="font-size:9px;letter-spacing:2px;color:${Object.keys(state.players[i].identities||{}).length>=5?'var(--green)':'var(--amber)'}">${Object.keys(state.players[i].identities||{}).length}/5</span>
     </div>`;
   });
 
-  // Render identity builder for current setup player
   const idx = state.setupPlayerIndex;
   document.getElementById('current-player-label').textContent = `BUILDING: ${state.players[idx].name.toUpperCase()}`;
-
   const ib = document.getElementById('identity-builder');
   ib.innerHTML = '';
   for (const [dim, data] of Object.entries(IDENTITIES)) {
     let html = `<div style="margin-bottom:20px;">
       <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--light-gray);margin-bottom:10px;">${data.label}</div>
-      <div style="display:flex;flex-direction:column;gap:6px;">`;
+      <div>`;
     data.options.forEach(opt => {
       const selected = state.players[idx].identities[dim] === opt.id;
       html += `<div class="identity-card ${selected?'selected':''}" onclick="selectIdentity('${dim}','${opt.id}')">
@@ -1296,20 +972,21 @@ function renderSetup() {
     html += `</div></div>`;
     ib.innerHTML += html;
   }
-
   renderCharPreview();
 }
 
 function selectIdentity(dim, id) {
-  const idx = state.setupPlayerIndex;
-  state.players[idx].identities[dim] = id;
+  state.players[state.setupPlayerIndex].identities[dim] = id;
   renderSetup();
 }
 
 function renderCharPreview() {
   const idx = state.setupPlayerIndex;
   const p = state.players[idx];
-  const score = calcBaseScore(p.identities);
+  const numId = Object.keys(p.identities).length;
+  const score = numId >= 5 ? calcBaseScore(p.identities) : null;
+  const cardCount = score !== null ? getCCWCardCount(score) : null;
+
   document.getElementById('preview-name').textContent = p.name || `Player ${idx+1}`;
   const tagsEl = document.getElementById('preview-tags');
   tagsEl.innerHTML = '';
@@ -1317,19 +994,33 @@ function renderCharPreview() {
     const opt = IDENTITIES[dim]?.options.find(o => o.id === id);
     if (opt) tagsEl.innerHTML += `<span class="char-tag">${opt.name}</span>`;
   });
-  const numId = Object.keys(p.identities).length;
-  document.getElementById('preview-score').textContent = numId < 5 ? '—' : score;
-  document.getElementById('preview-score').style.color = score > 60 ? 'var(--green)' : score > 35 ? 'var(--amber)' : 'var(--red)';
-  document.getElementById('preview-note').textContent = numId < 5
-    ? `Select all 5 dimensions (${5-numId} remaining)` 
-    : score > 65 ? 'High structural access — you\'ll face fewer systemic barriers'
-    : score < 35 ? 'Multiple intersecting marginalized identities — expect compounded barriers'
-    : 'Mixed access — you\'ll face some barriers that others don\'t';
+
+  const scoreEl = document.getElementById('preview-score');
+  const cardsEl = document.getElementById('preview-cards');
+  const noteEl = document.getElementById('preview-note');
+
+  if (numId < 5) {
+    scoreEl.textContent = '—';
+    scoreEl.style.color = 'var(--amber)';
+    cardsEl.textContent = '—';
+    noteEl.textContent = `Select all 5 dimensions (${5-numId} remaining)`;
+  } else {
+    scoreEl.textContent = score;
+    scoreEl.style.color = score > 60 ? 'var(--green)' : score > 35 ? 'var(--amber)' : 'var(--red)';
+    cardsEl.textContent = cardCount;
+    noteEl.textContent = cardCount === 0
+      ? 'No Community Wealth cards — dominant identity combination has fewer survival strategies to draw on'
+      : cardCount === 1
+      ? '1 Community Wealth card — some marginalization has generated navigational knowledge'
+      : cardCount === 2
+      ? '2 Community Wealth cards — meaningful marginalization has built meaningful community assets'
+      : '3 Community Wealth cards — deep intersectional marginalization generates the richest cultural wealth';
+  }
 }
 
 function addPlayer() {
   if (state.players.length >= 6) return;
-  state.players.push({ name: `Player ${state.players.length+1}`, identities: {}, score: 50 });
+  state.players.push({ name: `Player ${state.players.length+1}`, identities: {}, score: 50, ccwCards: [], ccwUsedThisRound: [] });
   renderSetup();
 }
 
@@ -1342,14 +1033,11 @@ function removePlayer() {
 
 function setRounds(n) {
   state.totalRounds = n;
-  document.querySelectorAll('.round-btn').forEach(b => {
-    b.classList.toggle('active-round', parseInt(b.dataset.rounds)===n);
-  });
+  document.querySelectorAll('.round-btn').forEach(b => b.classList.toggle('active-round', parseInt(b.dataset.rounds)===n));
 }
 
 function prevPlayerSetup() {
-  if (state.setupPlayerIndex > 0) state.setupPlayerIndex--;
-  renderSetup();
+  if (state.setupPlayerIndex > 0) { state.setupPlayerIndex--; renderSetup(); }
 }
 
 function nextPlayerSetup() {
@@ -1357,12 +1045,8 @@ function nextPlayerSetup() {
     state.setupPlayerIndex++;
     renderSetup();
   } else {
-    // finalize
     const incomplete = state.players.find(p => Object.keys(p.identities).length < 5);
-    if (incomplete) {
-      alert(`${incomplete.name} hasn't selected all 5 identity dimensions yet.`);
-      return;
-    }
+    if (incomplete) { alert(`${incomplete.name} hasn't selected all 5 identity dimensions yet.`); return; }
     state.players.forEach(p => { p.score = calcBaseScore(p.identities); });
     startGame();
   }
@@ -1380,38 +1064,84 @@ document.querySelectorAll('.pack-btn').forEach(b => {
 // GAME START
 // =========================================
 function startGame() {
-  // Validate
   const incomplete = state.players.find(p => Object.keys(p.identities).length < 5);
   if (incomplete) {
-    alert(`${incomplete.name} hasn't selected all 5 identity dimensions. Please complete character setup.`);
+    alert(`${incomplete.name} hasn't selected all 5 identity dimensions.`);
     showScreen('setup-screen');
     state.setupPlayerIndex = state.players.indexOf(incomplete);
     renderSetup();
     return;
   }
+  state.players.forEach(p => { p.score = calcBaseScore(p.identities); p.ccwCards = []; p.ccwUsedThisRound = []; });
 
-  state.players.forEach(p => { p.score = calcBaseScore(p.identities); });
-
-  // Pick scenarios
   const pack = SCENARIOS[state.scenarioPack] || SCENARIOS.workplace;
+  const allScenarios = Object.values(SCENARIOS).flat();
   state.scenarios = [];
   const available = [...pack];
-  // also pull from other packs if needed
-  const allScenarios = Object.values(SCENARIOS).flat();
   for (let i = 0; i < state.totalRounds; i++) {
     if (available.length > 0) {
       const idx = Math.floor(Math.random() * available.length);
       state.scenarios.push(available.splice(idx, 1)[0]);
     } else {
-      const fallback = allScenarios[Math.floor(Math.random() * allScenarios.length)];
-      state.scenarios.push(fallback);
+      state.scenarios.push(allScenarios[Math.floor(Math.random() * allScenarios.length)]);
     }
   }
 
   state.currentRound = 0;
   state.currentPhase = 0;
   state.playerChoices = {};
+  showCCWDraw();
+}
 
+// =========================================
+// CCW DRAW SCREEN
+// =========================================
+function showCCWDraw() {
+  clearInterval(state.timerInterval);
+
+  // Deal new cards for this round
+  state.players.forEach(p => {
+    const count = getCCWCardCount(p.score);
+    p.ccwCards = dealCCWCards(count);
+    p.ccwUsedThisRound = [];
+  });
+
+  document.getElementById('ccw-round-num').textContent = state.currentRound + 1;
+
+  const grid = document.getElementById('ccw-players-grid');
+  grid.innerHTML = '';
+
+  state.players.forEach((p, pi) => {
+    const count = p.ccwCards.length;
+    let cardsHtml = '';
+    if (count === 0) {
+      cardsHtml = `<div class="ccw-none-label">No Community Wealth cards this round — dominant identity combinations carry fewer survival strategies through hostile systems.</div>`;
+    } else {
+      p.ccwCards.forEach(card => {
+        cardsHtml += `<div class="ccw-card" style="border-color:${card.color}">
+          <div class="ccw-card-icon">${card.icon}</div>
+          <div class="ccw-card-capital" style="color:${card.color}">${card.capital}</div>
+          <div class="ccw-card-name">${card.name}</div>
+          <div class="ccw-card-desc">${card.desc}</div>
+          <div class="ccw-card-effect">In play: ${card.effect}</div>
+          <div class="ccw-card-bonus" style="color:${card.color}">+${card.bonus}</div>
+        </div>`;
+      });
+    }
+
+    grid.innerHTML += `<div class="ccw-player-draw">
+      <div class="ccw-player-draw-name">${p.name}</div>
+      <div class="ccw-player-draw-score">Access Score: ${Math.round(p.score)} · ${count} Wealth Card${count !== 1 ? 's' : ''}</div>
+      <div class="ccw-cards-list">${cardsHtml}</div>
+    </div>`;
+  });
+
+  showScreen('ccw-screen');
+}
+
+function proceedFromCCW() {
+  state.currentPhase = 0;
+  state.playerChoices = {};
   showScreen('game-screen');
   loadRound();
 }
@@ -1431,7 +1161,6 @@ function renderPhase() {
   const s = state.currentScenario;
   const phase = PHASES[state.currentPhase];
 
-  // Update phase steps
   PHASES.forEach((p, i) => {
     const el = document.getElementById(`ps-${p}`);
     el.classList.remove('active', 'done');
@@ -1439,25 +1168,19 @@ function renderPhase() {
     if (i === state.currentPhase) el.classList.add('active');
   });
 
-  // Hide/show phase panels
   document.querySelectorAll('[id^="phase-"]').forEach(el => el.classList.add('hidden'));
   document.getElementById(`phase-${phase}`).classList.remove('hidden');
 
-  // Nav buttons
   const prevBtn = document.getElementById('btn-prev-phase');
   const nextBtn = document.getElementById('btn-next-phase');
   prevBtn.classList.toggle('hidden', state.currentPhase === 0);
+  nextBtn.textContent = phase === 'reflect'
+    ? (state.currentRound < state.totalRounds - 1 ? 'NEXT ROUND →' : 'SEE RESULTS →')
+    : 'NEXT →';
 
-  if (phase === 'reflect') {
-    nextBtn.textContent = state.currentRound < state.totalRounds - 1 ? 'NEXT ROUND →' : 'SEE RESULTS →';
-  } else {
-    nextBtn.textContent = 'NEXT →';
-  }
-
-  // Render sidebar
   renderPlayerSidebar();
   renderResourceTracker(s);
-  document.getElementById('scenario-context').innerHTML = s.context.replace(/\. /g,'.<br><br>');
+  document.getElementById('scenario-context').innerHTML = s.context.replace(/\. /g, '.<br><br>');
   document.getElementById('crenshaw-quote').textContent = CRENSHAW_QUOTES[state.currentRound % CRENSHAW_QUOTES.length];
 
   if (phase === 'read') renderReadPhase(s);
@@ -1481,6 +1204,24 @@ function renderReadPhase(s) {
 }
 
 function renderDiscussPhase(s) {
+  // Show any CCW cards players have
+  let ccwSummary = '';
+  const hasCards = state.players.some(p => p.ccwCards.length > 0);
+  if (hasCards) {
+    ccwSummary = `<div style="margin-top:16px;background:#071410;border:1px solid var(--teal);padding:16px;">
+      <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">COMMUNITY WEALTH IN PLAY THIS ROUND</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">`;
+    state.players.forEach(p => {
+      if (p.ccwCards.length > 0) {
+        const cardNames = p.ccwCards.map(c => `<span style="color:var(--teal);font-size:10px;">${c.icon} ${c.name}</span>`).join(', ');
+        ccwSummary += `<div style="font-size:11px;color:var(--light-gray);"><strong style="color:var(--white)">${p.name}:</strong> ${cardNames}</div>`;
+      } else {
+        ccwSummary += `<div style="font-size:11px;color:#444;"><strong style="color:#555">${p.name}:</strong> No cards this round</div>`;
+      }
+    });
+    ccwSummary += `</div><div style="font-size:10px;color:#555;margin-top:10px;font-style:italic;">Cards can be played in the Reveal phase to shift outcomes. Decide as a group when and how to use them.</div></div>`;
+  }
+
   document.getElementById('phase-discuss').innerHTML = `
     <div class="discussion-prompt">
       <div class="discussion-prompt-label">Discussion Prompt (3 minutes)</div>
@@ -1489,11 +1230,12 @@ function renderDiscussPhase(s) {
     <div style="background:#0d0d0d;border:1px solid #222;padding:24px;margin-top:16px;">
       <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--light-gray);margin-bottom:16px;">GUIDE QUESTIONS</div>
       <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;">
-        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;">Which of your identities do you think will be most salient in this scenario — and why that one rather than others?</li>
-        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;">Are there combinations of identities you think will create unique disadvantages — not just the sum of separate disadvantages?</li>
-        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;">What systemic forces (laws, policies, norms, biases) are operating in this scenario?</li>
+        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;">Which of your identities do you think will be most salient in this scenario — and why that one rather than the others?</li>
+        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;">Are there combinations of identities that create unique disadvantages — not just the sum of separate ones?</li>
+        <li style="font-size:12px;color:var(--light-gray);border-left:2px solid var(--amber);padding-left:12px;color:var(--teal);border-left-color:var(--teal);">How might Community Wealth cards shift outcomes? Who holds knowledge or networks that could matter here?</li>
       </ul>
     </div>
+    ${ccwSummary}
   `;
 }
 
@@ -1501,8 +1243,8 @@ function renderChoosePhase(s) {
   const el = document.getElementById('access-options');
   el.innerHTML = '';
   s.approaches.forEach(approach => {
-    const anySelected = Object.keys(state.playerChoices).length > 0;
-    el.innerHTML += `<div class="access-option ${anySelected && state.playerChoices[state.players[0].name]===approach.id?'selected-choice':''}" onclick="selectApproach('${approach.id}')">
+    const isSelected = state.playerChoices[state.players[0]?.name] === approach.id;
+    el.innerHTML += `<div class="access-option ${isSelected?'selected-choice':''}" onclick="selectApproach('${approach.id}',event)">
       <div class="access-option-header">
         <span class="access-icon">${approach.icon}</span>
         <span class="access-option-name">${approach.name}</span>
@@ -1519,38 +1261,44 @@ function renderChoosePhase(s) {
       </div>
     </div>`;
   });
-  // For simplicity: all players choose the same approach (game facilitator picks), or we track per player
 }
 
-function selectApproach(id) {
+function selectApproach(id, evt) {
   state.players.forEach(p => { state.playerChoices[p.name] = id; });
   document.querySelectorAll('.access-option').forEach(el => el.classList.remove('selected-choice'));
-  event.currentTarget.classList.add('selected-choice');
+  evt.currentTarget.classList.add('selected-choice');
 }
 
 function renderRevealPhase(s) {
-  const chosen = state.playerChoices[state.players[0].name] || s.approaches[0].id;
+  const chosen = state.playerChoices[state.players[0]?.name] || s.approaches[0].id;
   const approach = s.approaches.find(a => a.id === chosen) || s.approaches[0];
 
-  let html = `<div class="outcome-header">OUTCOME REVEAL — APPROACH: ${approach.name}</div>`;
+  let html = `<div class="outcome-header">OUTCOME REVEAL — APPROACH: ${approach.name.toUpperCase()}</div>`;
+  html += `<div style="margin-bottom:16px;padding:12px;background:#071410;border:1px solid var(--teal);">
+    <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">COMMUNITY WEALTH — PLAY A CARD</div>
+    <div style="font-size:11px;color:var(--light-gray);line-height:1.6;">If you have an unplayed Wealth Card, click it below to activate it. Narrate <em>how</em> that form of capital shows up for your character in this moment. The card's bonus applies to your outcome.</div>
+  </div>`;
   html += `<div class="outcome-list">`;
 
-  state.players.forEach(p => {
-    // Calculate modifier
+  state.players.forEach((p, pi) => {
     let mod = 0;
     Object.entries(approach.modifiers || {}).forEach(([dim, mods]) => {
       const playerIdentity = p.identities[dim];
-      if (playerIdentity && mods[playerIdentity] !== undefined) {
-        mod += mods[playerIdentity];
-      }
+      if (playerIdentity && mods[playerIdentity] !== undefined) mod += mods[playerIdentity];
     });
-    // Base identity mod
+
     const baseScore = calcBaseScore(p.identities);
-    const outcome = baseScore + mod;
+
+    // Check if a CCW card was used (played during reveal)
+    const usedCard = p.ccwUsedThisRound[0] || null;
+    const ccwBonus = usedCard ? usedCard.bonus : 0;
+
+    const outcome = baseScore + mod + ccwBonus;
     const gained = outcome > 55;
     const blocked = outcome < 30;
+    const ccwSaved = !gained && !blocked && ccwBonus > 0 && (baseScore + mod) < 30;
 
-    const delta = Math.round(mod + (baseScore - 50) * 0.3);
+    const delta = Math.round(mod + (baseScore - 50) * 0.3 + ccwBonus * 0.5);
     p.score = Math.max(5, Math.min(100, p.score + delta * 0.4));
 
     const tagList = Object.entries(p.identities).map(([dim, id]) => {
@@ -1558,17 +1306,39 @@ function renderRevealPhase(s) {
       return opt?.name || id;
     }).join(' × ');
 
-    html += `<div class="outcome-item ${gained?'gained':blocked?'blocked':'lost'}">
-      <span class="outcome-badge ${gained?'g':blocked?'b':'l'}">${gained?'GRANTED':blocked?'BLOCKED':'LIMITED'}</span>
-      <div>
+    // Unplayed CCW cards buttons
+    const unplayed = p.ccwCards.filter(c => !p.ccwUsedThisRound.find(u => u.id === c.id));
+    let cardButtons = '';
+    if (unplayed.length > 0) {
+      cardButtons = `<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">`;
+      unplayed.forEach(card => {
+        cardButtons += `<button onclick="playCard(${pi},'${card.id}')" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:6px 10px;background:#071410;border:1px solid ${card.color};color:${card.color};cursor:pointer;text-transform:uppercase;">${card.icon} PLAY ${card.name} (+${card.bonus})</button>`;
+      });
+      cardButtons += `</div>`;
+    }
+
+    const itemClass = usedCard ? 'ccw-saved' : gained ? 'gained' : blocked ? 'blocked' : 'lost';
+    const badgeClass = usedCard ? 't' : gained ? 'g' : blocked ? 'b' : 'l';
+    const badgeText = usedCard ? 'WEALTH USED' : gained ? 'GRANTED' : blocked ? 'BLOCKED' : 'LIMITED';
+
+    let ccwNarrative = '';
+    if (usedCard) {
+      ccwNarrative = `<div class="outcome-ccw">${usedCard.icon} <strong>${usedCard.name}</strong> activated — "${usedCard.effect}" Ask: How does your character use this capital specifically in this moment?</div>`;
+    }
+
+    html += `<div class="outcome-item ${itemClass}">
+      <span class="outcome-badge ${badgeClass}">${badgeText}</span>
+      <div style="flex:1">
         <div class="outcome-text"><strong>${p.name}</strong> — ${tagList}</div>
-        <div class="outcome-why">${gained 
-          ? `Your identity combination creates relatively fewer systemic barriers in this context. Access score: +${Math.abs(Math.round(delta))}`
+        <div class="outcome-why">${gained
+          ? `Your identity combination creates relatively fewer systemic barriers here. Access score: +${Math.abs(Math.round(delta))}`
           : blocked
           ? `Multiple intersecting marginalized identities create compounding barriers. The system was not designed with your position in mind. Access score: ${Math.round(delta)}`
-          : `You face real barriers, though some identities partially mitigate others. Access score: ${Math.round(delta)}`
-        }</div>
-        <div style="margin-top:8px;height:3px;background:#222;"><div style="height:100%;width:${Math.max(5,Math.min(100,outcome))}%;background:${gained?'var(--green)':blocked?'#444':'var(--amber)'}"></div></div>
+          : `You face real barriers, though some identities partially offset others. Access score: ${Math.round(delta)}`
+        }${ccwBonus > 0 ? ` Community Wealth bonus: +${ccwBonus}` : ''}</div>
+        ${ccwNarrative}
+        ${cardButtons}
+        <div style="margin-top:8px;height:3px;background:#222;"><div style="height:100%;width:${Math.max(5,Math.min(100,outcome))}%;background:${gained?'var(--green)':usedCard?'var(--teal)':blocked?'#444':'var(--amber)'}"></div></div>
       </div>
     </div>`;
   });
@@ -1577,14 +1347,27 @@ function renderRevealPhase(s) {
   document.getElementById('outcome-display').innerHTML = html;
 }
 
+function playCard(playerIndex, cardId) {
+  const p = state.players[playerIndex];
+  const card = p.ccwCards.find(c => c.id === cardId);
+  if (!card || p.ccwUsedThisRound.find(c => c.id === cardId)) return;
+  p.ccwUsedThisRound.push(card);
+  renderRevealPhase(state.currentScenario);
+  renderPlayerSidebar();
+}
+
 function renderReflectPhase(s) {
   let qHtml = s.reflection.map(q => `<li>${q}</li>`).join('');
-  document.getElementById('phase-reflect').innerHTML = `
+  document.getElementById('reflect-box').innerHTML = `
     <div class="reflection-box">
       <div class="instructor-chip">REFLECTION — INSTRUCTOR LED</div>
-      <div style="font-size:13px;color:var(--white);font-weight:700;margin-bottom:16px;">Connecting to Crenshaw's Framework</div>
+      <div style="font-size:13px;color:var(--white);font-weight:700;margin-bottom:16px;">Connecting to Crenshaw & Yosso</div>
       <ul class="reflection-questions">${qHtml}</ul>
-      <div style="margin-top:24px;padding:16px;background:#0a0a0a;border-top:1px solid #1a1a1a;">
+      <div style="margin-top:24px;padding:16px;background:#071410;border:1px solid var(--teal);">
+        <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">YOSSO QUESTION</div>
+        <div style="font-size:12px;color:var(--light-gray);font-style:italic;line-height:1.7;">Where did Community Cultural Wealth shift an outcome the system was designed to block? What does that tell us about how communities survive and resist institutions that weren't built for them?</div>
+      </div>
+      <div style="margin-top:16px;padding:16px;background:#0a0a0a;border-top:1px solid #1a1a1a;">
         <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">KEY CONCEPT FROM THIS ROUND</div>
         <div style="font-size:12px;color:var(--light-gray);font-style:italic;line-height:1.7;">${s.crenshawQuote}</div>
       </div>
@@ -1602,6 +1385,11 @@ function renderPlayerSidebar() {
       const opt = IDENTITIES[dim]?.options.find(o=>o.id===id);
       return opt?.name||id;
     });
+    const ccwPips = p.ccwCards.map(c => {
+      const used = p.ccwUsedThisRound.find(u => u.id === c.id);
+      return `<span class="ccw-pip ${used?'used':''}" title="${c.capital}" style="${used?'':'border-color:'+c.color+';color:'+c.color}">${c.icon}</span>`;
+    }).join('');
+
     el.innerHTML += `<div class="player-card">
       <div class="player-card-name">${p.name}</div>
       <div class="player-tags-mini">${tags.map(t=>`<span class="tag-mini">${t}</span>`).join('')}</div>
@@ -1609,6 +1397,7 @@ function renderPlayerSidebar() {
         <span class="score-label">Access Score</span>
         <span class="score-val ${cls}">${score}</span>
       </div>
+      ${p.ccwCards.length > 0 ? `<div class="ccw-mini-row">${ccwPips}</div>` : ''}
     </div>`;
   });
 }
@@ -1636,21 +1425,17 @@ function nextPhase() {
     state.currentPhase++;
     renderPhase();
   } else {
-    // End of round
     state.currentRound++;
     if (state.currentRound >= state.totalRounds) {
       showEndScreen();
     } else {
-      loadRound();
+      showCCWDraw();
     }
   }
 }
 
 function prevPhase() {
-  if (state.currentPhase > 0) {
-    state.currentPhase--;
-    renderPhase();
-  }
+  if (state.currentPhase > 0) { state.currentPhase--; renderPhase(); }
 }
 
 // =========================================
@@ -1660,9 +1445,9 @@ function startTimer(seconds) {
   clearInterval(state.timerInterval);
   state.timerSeconds = seconds;
   const fill = document.getElementById('timer-fill');
+  if (!fill) return;
   fill.style.width = '100%';
   fill.style.background = 'var(--red)';
-
   state.timerInterval = setInterval(() => {
     state.timerSeconds--;
     const pct = (state.timerSeconds / seconds) * 100;
@@ -1679,20 +1464,21 @@ function showEndScreen() {
   const sorted = [...state.players].sort((a,b) => b.score - a.score);
   const winner = sorted[0];
 
-  const scoresEl = document.getElementById('final-scores');
-  scoresEl.innerHTML = sorted.map(p => {
+  document.getElementById('final-scores').innerHTML = sorted.map(p => {
     const score = Math.round(p.score);
     const tags = Object.entries(p.identities).map(([dim,id]) => {
       const opt = IDENTITIES[dim]?.options.find(o=>o.id===id);
       return opt?.name||id;
     });
     const cls = score > 60 ? 'var(--green)' : score < 35 ? 'var(--red)' : 'var(--amber)';
+    const cardCount = getCCWCardCount(calcBaseScore(p.identities));
     return `<div class="final-card ${p===winner?'winner':''}">
       ${p===winner?'<div style="font-size:9px;letter-spacing:3px;color:var(--amber);margin-bottom:8px;">HIGHEST ACCESS</div>':''}
       <div class="final-player-name">${p.name}</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:12px;">${tags.map(t=>`<span style="font-size:8px;padding:2px 6px;background:#1a1a1a;color:var(--light-gray);">${t}</span>`).join('')}</div>
       <div class="final-score-big" style="color:${cls}">${score}</div>
-      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;">Access Score</div>
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:12px;">Access Score</div>
+      <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);">${cardCount} Wealth Card${cardCount!==1?'s':''} per Round</div>
     </div>`;
   }).join('');
 
@@ -1700,8 +1486,9 @@ function showEndScreen() {
     <li>The player with the highest Access Score "won" — but does winning reflect something we should want? What does this reveal about privilege?</li>
     <li>Who experienced the most complex, layered set of barriers? How did intersecting identities create challenges no single identity would predict?</li>
     <li>Crenshaw argues that intersectionality is not about adding up disadvantages, but understanding their unique interaction. Where did you see this in the game?</li>
-    <li>What single change — to law, policy, or institutional culture — would most benefit the most-marginalized player in the group?</li>
-    <li>How might you apply an intersectional lens to your own life — to institutions you're part of, or systems you design?</li>
+    <li>Who held the most Community Cultural Wealth cards — and why? What does it mean that the most marginalized characters often had the most community knowledge to draw on?</li>
+    <li>Yosso argues that deficit thinking focuses on what communities lack, while Cultural Wealth focuses on what they carry. How did the game shift between these two framings?</li>
+    <li>What single change — to law, policy, or institutional culture — would most benefit the most-marginalized player in your group?</li>
   `;
 
   showScreen('end-screen');
@@ -1709,7 +1496,7 @@ function showEndScreen() {
 
 function restartGame() {
   state.currentRound = 0;
-  state.players.forEach(p => { p.score = calcBaseScore(p.identities); });
+  state.players.forEach(p => { p.score = calcBaseScore(p.identities); p.ccwCards = []; p.ccwUsedThisRound = []; });
   state.playerChoices = {};
   showScreen('setup-screen');
   state.setupPlayerIndex = 0;
@@ -1720,12 +1507,6 @@ function restartGame() {
 // INIT
 // =========================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Add style for active buttons
-  const style = document.createElement('style');
-  style.textContent = `
-    .active-round, .active-pack { background: var(--amber) !important; color: var(--black) !important; border-color: var(--amber) !important; }
-  `;
-  document.head.appendChild(style);
   renderSetup();
   document.getElementById('setup-screen').classList.remove('active');
 });
