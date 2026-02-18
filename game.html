@@ -1269,76 +1269,103 @@ function selectApproach(id, evt) {
   evt.currentTarget.classList.add('selected-choice');
 }
 
+function calcOutcome(p, approach) {
+  let mod = 0;
+  Object.entries(approach.modifiers || {}).forEach(([dim, mods]) => {
+    const pid = p.identities[dim];
+    if (pid && mods[pid] !== undefined) mod += mods[pid];
+  });
+  const base = calcBaseScore(p.identities);
+  const usedCard = p.ccwUsedThisRound[0] || null;
+  const ccwBonus = usedCard ? usedCard.bonus : 0;
+  const raw = base + mod;
+  const total = raw + ccwBonus;
+  return { base, mod, raw, ccwBonus, total, usedCard };
+}
+
 function renderRevealPhase(s) {
   const chosen = state.playerChoices[state.players[0]?.name] || s.approaches[0].id;
   const approach = s.approaches.find(a => a.id === chosen) || s.approaches[0];
 
   let html = `<div class="outcome-header">OUTCOME REVEAL — APPROACH: ${approach.name.toUpperCase()}</div>`;
-  html += `<div style="margin-bottom:16px;padding:12px;background:#071410;border:1px solid var(--teal);">
+  html += `<div style="margin-bottom:16px;padding:12px 16px;background:#071410;border:1px solid var(--teal);">
     <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;">COMMUNITY WEALTH — PLAY A CARD</div>
-    <div style="font-size:11px;color:var(--light-gray);line-height:1.6;">If you have an unplayed Wealth Card, click it below to activate it. Narrate <em>how</em> that form of capital shows up for your character in this moment. The card's bonus applies to your outcome.</div>
+    <div style="font-size:11px;color:var(--light-gray);line-height:1.6;">Each player may play one Wealth Card below to shift their outcome. After clicking, narrate out loud how your character draws on that capital right now.</div>
   </div>`;
   html += `<div class="outcome-list">`;
 
   state.players.forEach((p, pi) => {
-    let mod = 0;
-    Object.entries(approach.modifiers || {}).forEach(([dim, mods]) => {
-      const playerIdentity = p.identities[dim];
-      if (playerIdentity && mods[playerIdentity] !== undefined) mod += mods[playerIdentity];
-    });
+    const { base, mod, raw, ccwBonus, total, usedCard } = calcOutcome(p, approach);
 
-    const baseScore = calcBaseScore(p.identities);
-
-    // Check if a CCW card was used (played during reveal)
-    const usedCard = p.ccwUsedThisRound[0] || null;
-    const ccwBonus = usedCard ? usedCard.bonus : 0;
-
-    const outcome = baseScore + mod + ccwBonus;
-    const gained = outcome > 55;
-    const blocked = outcome < 30;
-    const ccwSaved = !gained && !blocked && ccwBonus > 0 && (baseScore + mod) < 30;
-
-    const delta = Math.round(mod + (baseScore - 50) * 0.3 + ccwBonus * 0.5);
-    p.score = Math.max(5, Math.min(100, p.score + delta * 0.4));
+    const gainedBefore = raw > 55;
+    const blockedBefore = raw < 30;
+    const gained = total > 55;
+    const blocked = total < 30;
+    const cardChangedVerdict = usedCard && ((blockedBefore && !blocked) || (!gainedBefore && gained));
 
     const tagList = Object.entries(p.identities).map(([dim, id]) => {
       const opt = IDENTITIES[dim]?.options.find(o => o.id === id);
       return opt?.name || id;
     }).join(' × ');
 
-    // Unplayed CCW cards buttons
+    const barBefore = Math.max(5, Math.min(100, raw));
+    const barAfter  = Math.max(5, Math.min(100, total));
+
+    const itemClass = gained ? 'gained' : blocked ? 'blocked' : 'lost';
+    const badgeClass = gained ? 'g' : blocked ? 'b' : 'l';
+    const badgeText = gained ? 'GRANTED' : blocked ? 'BLOCKED' : 'LIMITED';
+
+    const systemText = gainedBefore
+      ? `Your identity combination creates relatively fewer systemic barriers here.`
+      : blockedBefore
+      ? `Multiple intersecting marginalized identities create compounding barriers. The system was not designed with your position in mind.`
+      : `You face real barriers, though some identities partially offset others.`;
+
     const unplayed = p.ccwCards.filter(c => !p.ccwUsedThisRound.find(u => u.id === c.id));
     let cardButtons = '';
     if (unplayed.length > 0) {
       cardButtons = `<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">`;
       unplayed.forEach(card => {
-        cardButtons += `<button onclick="playCard(${pi},'${card.id}')" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:6px 10px;background:#071410;border:1px solid ${card.color};color:${card.color};cursor:pointer;text-transform:uppercase;">${card.icon} PLAY ${card.name} (+${card.bonus})</button>`;
+        cardButtons += `<button onclick="playCard(${pi},'${card.id}')" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:1px;padding:8px 12px;background:#071410;border:2px solid ${card.color};color:${card.color};cursor:pointer;text-transform:uppercase;font-weight:700;" onmouseover="this.style.background='${card.color}';this.style.color='#0a0a0a'" onmouseout="this.style.background='#071410';this.style.color='${card.color}'">${card.icon} PLAY: ${card.name} (+${card.bonus})</button>`;
       });
       cardButtons += `</div>`;
     }
 
-    const itemClass = usedCard ? 'ccw-saved' : gained ? 'gained' : blocked ? 'blocked' : 'lost';
-    const badgeClass = usedCard ? 't' : gained ? 'g' : blocked ? 'b' : 'l';
-    const badgeText = usedCard ? 'WEALTH USED' : gained ? 'GRANTED' : blocked ? 'BLOCKED' : 'LIMITED';
-
-    let ccwNarrative = '';
+    let ccwBlock = '';
     if (usedCard) {
-      ccwNarrative = `<div class="outcome-ccw">${usedCard.icon} <strong>${usedCard.name}</strong> activated — "${usedCard.effect}" Ask: How does your character use this capital specifically in this moment?</div>`;
+      const changeLabel = cardChangedVerdict
+        ? `<span style="font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;color:var(--teal);"> ↑ OUTCOME CHANGED</span>`
+        : `<span style="font-size:10px;color:#888;"> (score improved, verdict unchanged)</span>`;
+      ccwBlock = `<div class="outcome-ccw">
+        ${usedCard.icon} <strong>${usedCard.capital}:</strong> ${usedCard.name} +${usedCard.bonus}${changeLabel}<br>
+        <span style="display:block;margin-top:6px;font-style:italic;">"${usedCard.effect}"</span>
+        <span style="display:block;margin-top:8px;color:#888;font-size:9px;letter-spacing:1px;text-transform:uppercase;">→ Narrate: How does your character draw on this capital right now, in this specific moment?</span>
+      </div>`;
+    }
+
+    let barHtml = '';
+    if (usedCard) {
+      barHtml = `<div style="margin-top:10px;">
+        <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:3px;">WITHOUT WEALTH CARD</div>
+        <div style="height:3px;background:#222;margin-bottom:8px;"><div style="height:100%;width:${barBefore}%;background:${gainedBefore?'var(--green)':blockedBefore?'#444':'var(--amber)'}"></div></div>
+        <div style="font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:3px;">WITH WEALTH CARD</div>
+        <div style="height:5px;background:#222;"><div style="height:100%;width:${barAfter}%;background:${gained?'var(--green)':blocked?'#444':'var(--teal)'}"></div></div>
+      </div>`;
+    } else {
+      barHtml = `<div style="margin-top:8px;height:3px;background:#222;"><div style="height:100%;width:${barBefore}%;background:${gained?'var(--green)':blocked?'#444':'var(--amber)'}"></div></div>`;
     }
 
     html += `<div class="outcome-item ${itemClass}">
       <span class="outcome-badge ${badgeClass}">${badgeText}</span>
       <div style="flex:1">
         <div class="outcome-text"><strong>${p.name}</strong> — ${tagList}</div>
-        <div class="outcome-why">${gained
-          ? `Your identity combination creates relatively fewer systemic barriers here. Access score: +${Math.abs(Math.round(delta))}`
-          : blocked
-          ? `Multiple intersecting marginalized identities create compounding barriers. The system was not designed with your position in mind. Access score: ${Math.round(delta)}`
-          : `You face real barriers, though some identities partially offset others. Access score: ${Math.round(delta)}`
-        }${ccwBonus > 0 ? ` Community Wealth bonus: +${ccwBonus}` : ''}</div>
-        ${ccwNarrative}
+        <div class="outcome-why">${systemText}
+          <span style="color:#666;"> System score: ${raw > 50 ? '+' : ''}${Math.round(raw - 50)}</span>
+          ${ccwBonus > 0 ? `<span style="color:var(--teal);">  +${ccwBonus} Community Wealth</span>` : ''}
+        </div>
+        ${ccwBlock}
         ${cardButtons}
-        <div style="margin-top:8px;height:3px;background:#222;"><div style="height:100%;width:${Math.max(5,Math.min(100,outcome))}%;background:${gained?'var(--green)':usedCard?'var(--teal)':blocked?'#444':'var(--amber)'}"></div></div>
+        ${barHtml}
       </div>
     </div>`;
   });
@@ -1350,11 +1377,16 @@ function renderRevealPhase(s) {
 function playCard(playerIndex, cardId) {
   const p = state.players[playerIndex];
   const card = p.ccwCards.find(c => c.id === cardId);
-  if (!card || p.ccwUsedThisRound.find(c => c.id === cardId)) return;
+  if (!card) return;
+  if (p.ccwUsedThisRound.length > 0) {
+    alert(p.name + ' has already played a Wealth Card this round. Each player gets one card play per round.');
+    return;
+  }
   p.ccwUsedThisRound.push(card);
   renderRevealPhase(state.currentScenario);
   renderPlayerSidebar();
 }
+
 
 function renderReflectPhase(s) {
   let qHtml = s.reflection.map(q => `<li>${q}</li>`).join('');
